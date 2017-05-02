@@ -21,6 +21,8 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "mongoose": "^4.9.7",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+	"mongodb": "^2.2.26",
+	"mongodb-core": "^2.1.10",
   }
 }
