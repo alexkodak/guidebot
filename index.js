@@ -8,8 +8,8 @@ app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
 
 
-var tour = require('./routes/tour');
-app.use('/tour', tour);
+//var tour = require('./routes/tour');
+//app.use('/tour', tour);
 
 // Server index page - deprecated as test now located in Rest API
 app.get("/", function (req, res) {
