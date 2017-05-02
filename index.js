@@ -12,9 +12,9 @@ var tour = require('./routes/tour');
 app.use('/tour', tour);
 
 // Server index page - deprecated as test now located in Rest API
-//app.get("/", function (req, res) {
-  //res.send("Deployed!");
-//});
+app.get("/", function (req, res) {
+  res.send("Deployed!");
+});
 
 // Facebook Webhook
 // Used for verification
