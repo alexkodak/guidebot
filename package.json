@@ -1,7 +1,7 @@
 {
   "name": "guidebot",
   "version": "1.0.0",
-  "description": "",
+  "description": "App and API for GuideBot",
   "main": "index.js",
   "scripts": {
     "test": "echo \\\"Error: no test specified\\\" && exit 1",
