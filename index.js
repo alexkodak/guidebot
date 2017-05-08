@@ -162,6 +162,18 @@ function findTour(userId, formattedMsg) {
     });
 }
 
+
+function getTourDetail(userId, field) {
+  Tour.findOne({user_id: userId}, function(err, tour) {
+    if(err) {
+      sendMessage(userId, {text: "Something went wrong. Try again"});
+    } else {
+      sendMessage(userId, {text: tour[field]});
+    }
+  });
+}
+
+
 // sends message to user
 function sendMessage(recipientId, message) {
   request({
