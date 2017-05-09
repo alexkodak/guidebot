@@ -1,9 +1,11 @@
-var mongoose = require("mongoose");
-var Schema = mongoose.Schema;
+var mongoose = require('mongoose');
+var db = mongoose.connect(process.env.MONGODB_URI);
 
-var InputSchema = new Schema({
+var InputSchema = new mongoose.Schema({
   user_id: {type: String},
   tour: {type: String}
 });
 
-module.exports = mongoose.model("Facebook", InputSchema);
+var Input = mongoose.model ('Input', schema);
+
+// module.exports = mongoose.model('Input', InputSchema);
