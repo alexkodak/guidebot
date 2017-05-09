@@ -99,15 +99,13 @@ function processMessage(event) {
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
-     switch (formattedMsg) {
-		case "language":
-		getTourDetail(senderId, formattedMsg);
-	break;
-        default:
-         findTour(senderId, formattedMsg);
-    }
-	  
-	  
+     // switch (formattedMsg) {
+		//  case "language":
+		//	getTourDetail(senderId, formattedMsg);
+		//	break;
+        //default:
+         // findTour(senderId, formattedMsg);
+      //}
 	  
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don"t understand your request."});
