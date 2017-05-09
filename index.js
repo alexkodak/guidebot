@@ -4,7 +4,7 @@ var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
 var db = mongoose.connect(process.env.MONGODB_URI);
-var Input = require("./models/input");
+var Input = require("./routes/input");
 
 var app = express();
 app.use(bodyParser.urlencoded({extended: false}));
@@ -187,5 +187,5 @@ function sendMessage(recipientId, message) {
     if (error) {
       console.log("Error sending message: " + response.error);
     }
-  });
+});
 }
