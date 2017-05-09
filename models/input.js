@@ -8,4 +8,4 @@ var InputSchema = new mongoose.Schema({
 
 var Input = mongoose.model ('Input', schema);
 
-// module.exports = mongoose.model('Input', InputSchema);
+module.exports = mongoose.model('Input', InputSchema);
