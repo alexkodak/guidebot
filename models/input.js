@@ -1,12 +1,12 @@
-var mongoose = require('mongoose');
+var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 // var db = mongoose.connect(process.env.MONGODB_URI);
 
-// var Input = mongoose.model ('Input', InputSchema);
+// var Input = mongoose.model ("Input", InputSchema);
 
-var InputSchema = new mongoose.Schema({
+var InputSchema = new Schema({
   user_id: {type: String},
   tour: {type: String}
 });
 
-module.exports = mongoose.model('Input', InputSchema);
+module.exports = mongoose.model("Input", InputSchema);
