@@ -55,7 +55,7 @@ function processPostback(event) {
   var payload = event.postback.payload;
 
   if (payload === "Greeting") {
-    // Get user"s first name from the User Profile API
+    // Get user's first name from the User Profile API
     // and include it in the greeting
     request({
       url: "https://graph.facebook.com/v2.6/" + senderId,
@@ -67,7 +67,7 @@ function processPostback(event) {
     }, function(error, response, body) {
       var greeting = "";
       if (error) {
-        console.log("Error getting user"s name: " +  error);
+        console.log("Error getting user's name: " +  error);
       } else {
         var bodyObj = JSON.parse(body);
         name = bodyObj.first_name;
@@ -82,28 +82,32 @@ function processPostback(event) {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
 }
+
+
 function processMessage(event) {
   if (!event.message.is_echo) {
     var message = event.message;
     var senderId = event.sender.id;
+
     console.log("Received message from senderId: " + senderId);
     console.log("Message is: " + JSON.stringify(message));
+
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
+
       // If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
-     // switch (formattedMsg) {
+      switch (formattedMsg) {
 		  case "language":
 			getTourDetail(senderId, formattedMsg);
 			break;
-        //default:
-         // findTour(senderId, formattedMsg);
-      //}
-	  
+        default:
+          findTour(senderId, formattedMsg);
+      }
     } else if (message.attachments) {
-      sendMessage(senderId, {text: "Sorry, I don"t understand your request."});
+      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
     }
   }
 }
@@ -187,5 +191,5 @@ function sendMessage(recipientId, message) {
     if (error) {
       console.log("Error sending message: " + response.error);
     }
-});
+  });
 }
