@@ -95,9 +95,9 @@ function processMessage(event) {
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
      // switch (formattedMsg) {
-		//  case "language":
-		//	getTourDetail(senderId, formattedMsg);
-		//	break;
+		  case "language":
+			getTourDetail(senderId, formattedMsg);
+			break;
         //default:
          // findTour(senderId, formattedMsg);
       //}
