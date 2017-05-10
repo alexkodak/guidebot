@@ -96,14 +96,14 @@ function processMessage(event) {
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
 
-      // If we receive a text message, check to see if it matches any special
+      /* If we receive a text message, check to see if it matches any special
       // keywords and send back the corresponding movie detail.
       // Otherwise, search for new movie.
       switch (formattedMsg) {
 		  case "language":
 			getTourDetail(senderId, formattedMsg);
 			break;
-        default:
+        default: */
           findTour(senderId, formattedMsg);
       }
     } else if (message.attachments) {
@@ -123,8 +123,8 @@ function findTour(userId, formattedMsg) {
                 var update = {
                     user_id: userId,
                     tour: toursObj.Tour,
-                    language: ToursObj.Language,
-                    description: ToursObj.Description,
+                    language: toursObj.Language,
+                    description: toursObj.Description,
                 };
                 var options = {upsert: true};
                Tour.findOneAndUpdate(query, update, options, function(err, mov) {
@@ -166,7 +166,7 @@ function findTour(userId, formattedMsg) {
 }
 
 
-function getTourDetail(userId, field) {
+/*function getTourDetail(userId, field) {
   Tour.findOne({user_id: userId}, function(err, tour) {
     if(err) {
       sendMessage(userId, {text: "Something went wrong. Try again"});
@@ -175,7 +175,7 @@ function getTourDetail(userId, field) {
     }
   });
 }
-
+*/
 
 // sends message to user
 function sendMessage(recipientId, message) {
