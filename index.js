@@ -106,8 +106,8 @@ function processMessage(event) {
 	  getTourDetail(senderId, formattedMsg);
 			break;
         default:
-        //  findTour(senderId, formattedMsg);
-		  sendMessage(senderId, {text: "Okay boss."});
+          findTour(senderId, formattedMsg);
+		  sendMessage(senderId, {text: "Okay boss." + formattedMsg});
       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
