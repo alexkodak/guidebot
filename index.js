@@ -115,21 +115,7 @@ function processMessage(event) {
   }
 }
 
-
-function findTour("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, callback)
-{
-    var findTour = new findTourRequest();
-    findTour.onreadystatechange = function() { 
-        if (findTour.readyState == 4 && findTour.status == 200)
-            callback(findTour.responseText);
-    }
-    findTour.open("GET", "https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, true); // true for asynchronous 
-    findTour.send(null);
-}
-
-
-
-/* look for tour details
+// look for tour details
 
 function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
@@ -144,6 +130,7 @@ function findTour(senderId, formattedMsg) {
                     description: ToursObj.description,
                 };
                 var options = {upsert: true};
+				sendMessage(senderId, {text: "Found it boss."});
                Tour.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
@@ -181,7 +168,7 @@ function findTour(senderId, formattedMsg) {
         }
     });
 }
-*/
+
 
 function getTourDetail(senderId, field) {
   Tour.findOne({user_id: senderId}, function(err, tour) {
