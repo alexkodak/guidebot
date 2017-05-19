@@ -115,13 +115,25 @@ function processMessage(event) {
   }
 }
 
-// look for tour details
+
+function findTour("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, callback)
+{
+    var findTour = new findTourRequest();
+    findTour.onreadystatechange = function() { 
+        if (findTour.readyState == 4 && findTour.status == 200)
+            callback(findTour.responseText);
+    }
+    findTour.open("GET", "https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, true); // true for asynchronous 
+    findTour.send(null);
+}
+
+
+
+/* look for tour details
 
 function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
-        if (!error && response.statusCode == 200)
-		sendMessage(senderId, {text: "We are connected boss"});
-			/*{
+        if (!error && response.statusCode == 200) {
             var toursObj = JSON.parse(body);
             if (toursObj.Response === "True") {
                 var query = {user_id: senderId};
@@ -159,7 +171,7 @@ function findTour(senderId, formattedMsg) {
                         };
                         sendMessage(senderId, message);
                     }
-                }); */
+                });
             } else {
                 console.log(toursObj.Error);
                 sendMessage(senderId, {text: toursObj.Error});
@@ -169,7 +181,7 @@ function findTour(senderId, formattedMsg) {
         }
     });
 }
-
+*/
 
 function getTourDetail(senderId, field) {
   Tour.findOne({user_id: senderId}, function(err, tour) {
