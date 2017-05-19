@@ -122,12 +122,12 @@ function findTour(userId, formattedMsg) {
                 var query = {user_id: userId};
                 var update = {
                     user_id: userId,
-                    tour: toursObj.Tour,
-                    language: ToursObj.Language,
-                    description: ToursObj.Description,
+                    tour: toursObj.tour,
+                    language: ToursObj.language,
+                    description: ToursObj.description,
                 };
                 var options = {upsert: true};
-               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
+               Input.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -137,7 +137,7 @@ function findTour(userId, formattedMsg) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                        title: toursObj.Tour,
+                                        title: toursObj.tour,
                                         subtitle: "Is this the tour are looking for?",
                                         buttons: [{
                                             type: "postback",
