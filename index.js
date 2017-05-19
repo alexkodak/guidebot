@@ -155,7 +155,7 @@ function findTour(senderId, formattedMsg) {
                                 }
                             }
                         };
-                        sendMessage(senderId, message);
+                        sendMessage(userId, message);
                     }
                 });
             } else {
