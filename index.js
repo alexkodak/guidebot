@@ -119,7 +119,9 @@ function processMessage(event) {
 
 function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
+        if (!error && response.statusCode == 200)
+		sendMessage(senderId, {text: "We are connected boss"});
+			/*{
             var toursObj = JSON.parse(body);
             if (toursObj.Response === "True") {
                 var query = {user_id: senderId};
@@ -130,7 +132,7 @@ function findTour(senderId, formattedMsg) {
                     description: ToursObj.description,
                 };
                 var options = {upsert: true};
-               Input.findOneAndUpdate(query, update, options, function(err, mov) {
+               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -157,7 +159,7 @@ function findTour(senderId, formattedMsg) {
                         };
                         sendMessage(senderId, message);
                     }
-                });
+                }); */
             } else {
                 console.log(toursObj.Error);
                 sendMessage(senderId, {text: toursObj.Error});
