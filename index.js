@@ -95,16 +95,7 @@ function processMessage(event) {
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
-
-      /* If we receive a text message, check to see if it matches any special
-      // keywords and send back the corresponding movie detail.
-      // Otherwise, search for new movie.
-      switch (formattedMsg) {
-		  case "language":
-			getTourDetail(senderId, formattedMsg);
-			break;
-        default: */
-          findTour(senderId, formattedMsg);
+      findTour(senderId, formattedMsg);
       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
@@ -122,12 +113,12 @@ function findTour(userId, formattedMsg) {
                 var query = {user_id: userId};
                 var update = {
                     user_id: userId,
-                    tour: toursObj.Tour,
-                    language: toursObj.Language,
-                    description: toursObj.Description,
+                    tour: toursObj.tour,
+                    language: toursObj.language,
+                    description: toursObj.description,
                 };
                 var options = {upsert: true};
-               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
+               Input.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
