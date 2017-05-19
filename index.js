@@ -122,9 +122,9 @@ function findTour(senderId, formattedMsg) {
         if (!error && response.statusCode == 200) {
             var toursObj = JSON.parse(body);
             if (toursObj.Response === "True") {
-                var query = {user_id: userId};
+                var query = {user_id: senderId};
                 var update = {
-                    user_id: userId,
+                    user_id: senderId,
                     tour: toursObj.tour,
                     language: ToursObj.language,
                     description: ToursObj.description,
@@ -155,7 +155,7 @@ function findTour(senderId, formattedMsg) {
                                 }
                             }
                         };
-                        sendMessage(userId, message);
+                        sendMessage(senderId, message);
                     }
                 });
             } else {
@@ -163,18 +163,18 @@ function findTour(senderId, formattedMsg) {
                 sendMessage(senderId, {text: toursObj.Error});
             }
         } else {
-            sendMessage(userId, {text: "Something went wrong. Try again."});
+            sendMessage(senderId, {text: "Something went wrong. Try again."});
         }
     });
 }
 
 
-function getTourDetail(userId, field) {
-  Tour.findOne({user_id: userId}, function(err, tour) {
+function getTourDetail(senderId, field) {
+  Tour.findOne({user_id: senderId}, function(err, tour) {
     if(err) {
-      sendMessage(userId, {text: "Something went wrong. Try again"});
+      sendMessage(senderId, {text: "Something went wrong. Try again"});
     } else {
-      sendMessage(userId, {text: tour[field]});
+      sendMessage(senderId, {text: tour[field]});
     }
   });
 }
