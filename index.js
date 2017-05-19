@@ -95,17 +95,17 @@ function processMessage(event) {
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
-	  
-	   // If we receive a text message, check to see if it matches any special
--      // keywords and send back the corresponding movie detail.
--      // Otherwise, search for new movie.
--      switch (formattedMsg) {
--		  case "language":
--			getTourDetail(senderId, formattedMsg);
--			break;
--        default:
--          findTour(senderId, formattedMsg);
-       }
+
+      // If we receive a text message, check to see if it matches any special
+      // keywords and send back the corresponding movie detail.
+      // Otherwise, search for new movie.
+      switch (formattedMsg) {
+		  case "language":
+			getTourDetail(senderId, formattedMsg);
+			break;
+        default:
+          findTour(senderId, formattedMsg);
+      }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
     }
@@ -122,12 +122,12 @@ function findTour(userId, formattedMsg) {
                 var query = {user_id: userId};
                 var update = {
                     user_id: userId,
-                    tour: toursObj.tour,
-                    language: toursObj.language,
-                    description: toursObj.description,
+                    tour: toursObj.Tour,
+                    language: ToursObj.Language,
+                    description: ToursObj.Description,
                 };
                 var options = {upsert: true};
-               Input.findOneAndUpdate(query, update, options, function(err, mov) {
+               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -166,7 +166,7 @@ function findTour(userId, formattedMsg) {
 }
 
 
-/*function getTourDetail(userId, field) {
+function getTourDetail(userId, field) {
   Tour.findOne({user_id: userId}, function(err, tour) {
     if(err) {
       sendMessage(userId, {text: "Something went wrong. Try again"});
@@ -175,7 +175,7 @@ function findTour(userId, formattedMsg) {
     }
   });
 }
-*/
+
 
 // sends message to user
 function sendMessage(recipientId, message) {

@@ -1,11 +1,11 @@
 var mongoose = require("mongoose");
+var Schema = mongoose.Schema;
 
-var InputSchema = mongoose.Schema({
-	user_id: String,
-	tour: String,
-	language: String,
-	Description: String
+var InputSchema = new Schema({
+  user_id: {type: String},
+  tour: {type: String},
+  language: {type: String},
+  description: {type: String}
 });
 
 module.exports = mongoose.model("Input", InputSchema);
-
