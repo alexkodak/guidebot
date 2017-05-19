@@ -129,9 +129,11 @@ function findTour(senderId, formattedMsg) {
                     language: ToursObj.language,
                     description: ToursObj.description,
                 };
-                var options = {upsert: true};
+             //   var options = {upsert: true};
 				sendMessage(senderId, {text: "Found it boss."});
-               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
+			
+		//		    Tour.findOneAndUpdate(query, update, options, function(err, mov) {
+               Tour.findOneAndUpdate(query, update, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
