@@ -155,12 +155,12 @@ function findTour(senderId, formattedMsg) {
                                 }
                             }
                         };
-                        sendMessage(userId, message);
+                        sendMessage(senderId, message);
                     }
                 });
             } else {
                 console.log(toursObj.Error);
-                sendMessage(userId, {text: toursObj.Error});
+                sendMessage(senderId, {text: toursObj.Error});
             }
         } else {
             sendMessage(userId, {text: "Something went wrong. Try again."});
