@@ -122,9 +122,9 @@ function findTour(senderId, formattedMsg) {
         if (!error && response.statusCode == 200) {
             var toursObj = JSON.parse(body);
             if (toursObj.Response === "True") {
-                var query = {user_id: senderId};
+                var query = {_id: senderId};
                 var update = {
-                    user_id: senderId,
+                    _id: senderId,
                     tour: toursObj.tour,
                     language: ToursObj.language,
                     description: ToursObj.description,
