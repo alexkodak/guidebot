@@ -95,8 +95,17 @@ function processMessage(event) {
     // You may get a text or attachment but not both
     if (message.text) {
       var formattedMsg = message.text.toLowerCase().trim();
-      findTour(senderId, formattedMsg);
-      }
+	  
+	   // If we receive a text message, check to see if it matches any special
+-      // keywords and send back the corresponding movie detail.
+-      // Otherwise, search for new movie.
+-      switch (formattedMsg) {
+-		  case "language":
+-			getTourDetail(senderId, formattedMsg);
+-			break;
+-        default:
+-          findTour(senderId, formattedMsg);
+       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
     }
