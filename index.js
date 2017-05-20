@@ -120,9 +120,8 @@ function processMessage(event) {
 function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
-			console.log("connection ok" + body);
-       //     var body = document.body.innerText;
 			var inputObj = JSON.parse(body);
+			console.log("connection ok" + inputObj);
             if (inputObj.Response === "True") {
                 var query = {user_id: senderId};
                 var update = {
