@@ -121,19 +121,19 @@ function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok: status 200: ");
-            var toursObj = JSON.parse(body);
-            if (toursObj.Response === "True") {
+            var inputObj = JSON.parse(body);
+            if (inputObj.Response === "True") {
                 var query = {user_id: senderId};
                 var update = {
                     user_id: senderId,
-                    tour: toursObj.tour,
-                    language: ToursObj.language,
-                    description: ToursObj.description,
+                    tour: inputObj.tour,
+                    language: inputObj.language,
+                    description: inputsObj.description,
                 };
                 var options = {upsert: true};
-// sendMessage(senderId, {text: "Found it boss."});
-               
+              
 				   Input.findOneAndUpdate(query, update, options, function(err, mov) {
+					   console.log("find started ")
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -143,7 +143,7 @@ function findTour(senderId, formattedMsg) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                        title: toursObj.tour,
+                                        title: inputObj.tour,
                                         subtitle: "Is this the tour are looking for?",
                                         buttons: [{
                                             type: "postback",
@@ -162,8 +162,8 @@ function findTour(senderId, formattedMsg) {
                     }
                 });
             } else {
-                console.log(toursObj.Error);
-                sendMessage(senderId, {text: toursObj.Error});
+                console.log(inputObj.Error);
+                sendMessage(senderId, {text: inputObj.Error});
             }
         } else {
             sendMessage(senderId, {text: "Something went wrong. Try again."});
@@ -173,7 +173,7 @@ function findTour(senderId, formattedMsg) {
 
 
 function getTourDetail(senderId, field) {
-  Tour.findOne({user_id: senderId}, function(err, tour) {
+  Input.findOne({user_id: senderId}, function(err, tour) {
     if(err) {
       sendMessage(senderId, {text: "Something went wrong. Try again"});
     } else {
