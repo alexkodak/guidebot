@@ -122,16 +122,17 @@ function findTour(senderId, formattedMsg) {
         if (!error && response.statusCode == 200) {
             var toursObj = JSON.parse(body);
             if (toursObj.Response === "True") {
-                var query = {_id: senderId};
+                var query = {user_id: senderId};
                 var update = {
-                    _id: senderId,
+                    user_id: senderId,
                     tour: toursObj.tour,
                     language: ToursObj.language,
                     description: ToursObj.description,
                 };
                 var options = {upsert: true};
 // sendMessage(senderId, {text: "Found it boss."});
-               Tour.findOneAndUpdate(query, update, options, function(err, mov) {
+               
+				   Input.findOneAndUpdate(query, update, options, function(err, mov) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
