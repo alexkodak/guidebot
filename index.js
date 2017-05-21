@@ -123,8 +123,16 @@ function findTour(senderId, formattedMsg) {
 			console.log("connection ok" + body);
 			var json = body,
 				inputObj = JSON.parse(json);
-			    if (inputObj.Response === "True") {
-                var query = {"1096617617109964"};
+				
+				
+				 if {
+            sendMessage(senderId, {text: "Something went wrong. Try again."});
+        }
+				
+						
+			    
+         else {
+                var query = {user_id: senderId};
                 var update = {
                 //    user_id: senderId,
                     tour: inputObj.tour,
@@ -134,8 +142,7 @@ function findTour(senderId, formattedMsg) {
                 var options = {upsert: true};
               
 				Input.findOneAndUpdate(query, update, options, function(err, mov) {
-					   console.log("find started ")
-                    if (err) {
+				  if (err) {
                         console.log("Database error: " + err);
                     } else {
                         message = {
@@ -166,9 +173,6 @@ function findTour(senderId, formattedMsg) {
                 console.log(inputObj.Error);
                 sendMessage(senderId, {text: inputObj.Error});
             }
-        } else {
-            sendMessage(senderId, {text: "Something went wrong. Try again."});
-        }
     });
 }
 
