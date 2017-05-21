@@ -133,7 +133,8 @@ function findTour(senderId, formattedMsg) {
                 };
                 var options = {upsert: true};
               
-				   Input.findOneAndUpdate(query, update, options, function(err, mov) {
+			//	   Input.findOneAndUpdate(query, update, options, function(err, mov) {
+				Input.findOne({ user_id: SenderId }, { tour: 1, language: 1, description: 1 }, function(err, mov) {
 					   console.log("find started ")
                     if (err) {
                         console.log("Database error: " + err);
