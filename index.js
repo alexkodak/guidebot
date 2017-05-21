@@ -123,15 +123,7 @@ function findTour(senderId, formattedMsg) {
 			console.log("connection ok" + body);
 			var json = body,
 				inputObj = JSON.parse(json);
-				
-				
-				 if {
-            sendMessage(senderId, {text: "Something went wrong. Try again."});
-        }
-				
-						
-			    
-         else {
+			    if (inputObj.Response === "True") {
                 var query = {user_id: senderId};
                 var update = {
                 //    user_id: senderId,
@@ -173,6 +165,9 @@ function findTour(senderId, formattedMsg) {
                 console.log(inputObj.Error);
                 sendMessage(senderId, {text: inputObj.Error});
             }
+        } else {
+            sendMessage(senderId, {text: "Something went wrong. Try again."});
+        }
     });
 }
 
