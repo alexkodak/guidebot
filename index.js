@@ -126,15 +126,14 @@ function findTour(senderId, formattedMsg) {
 			    if (inputObj.Response === "True") {
                 var query = {user_id: senderId};
                 var update = {
-                    user_id: senderId,
+                //    user_id: senderId,
                     tour: inputObj.tour,
                     language: inputObj.language,
                     description: inputsObj.description,
                 };
                 var options = {upsert: true};
               
-			//	   Input.findOneAndUpdate(query, update, options, function(err, mov) {
-				Input.findOne({ user_id: SenderId }, { tour: 1, language: 1, description: 1 }, function(err, mov) {
+				Input.findOneAndUpdate(query, update, options, function(err, mov) {
 					   console.log("find started ")
                     if (err) {
                         console.log("Database error: " + err);
