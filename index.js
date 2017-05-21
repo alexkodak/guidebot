@@ -124,7 +124,7 @@ function findTour(senderId, formattedMsg) {
 			var json = body,
 				inputObj = JSON.parse(json);
 			    if (inputObj.Response === "True") {
-                var query = {user_id: senderId};
+                var query = {"1096617617109964"};
                 var update = {
                 //    user_id: senderId,
                     tour: inputObj.tour,
