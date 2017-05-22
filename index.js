@@ -121,9 +121,9 @@ function findTour(userId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-			sendMessage(userId, {text: "well received userId is:" + userId});
+			console.log("well received userId is:" + userId);
 			var inputObj = JSON.parse(body);
-			sendMessage(userId, {text: "well received input is:" + JSON.stringify(inputObj)});
+			console.log("well received input is:" + JSON.stringify(inputObj));
 			  if (inputObj.Response === "True") {
                	var query = {user_id: userId};
                 var update = {
@@ -133,9 +133,10 @@ function findTour(userId, formattedMsg) {
                     description: inputsObj.description,
                 };
                 var options = {upsert: true};
-              sendMessage(userId, {text: "well received query is:" + query});
-			  sendMessage(userId, {text: "well received update is:" + update});
-				Input.findOneAndUpdate(query, update, options, function(err, Input) {
+				console.log("inputObj is true");
+				console.log("query is:" + query);
+				console.log("update is:" + update);
+              				Input.findOneAndUpdate(query, update, options, function(err, Input) {
 				  if (err) {
                         console.log("Database error: " + err);
                     } else {
