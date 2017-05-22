@@ -117,6 +117,7 @@ function processMessage(event) {
 
 // look for tour details
 
+var senderId = event.sender.id;
 
 function findTour(senderId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
