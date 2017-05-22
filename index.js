@@ -117,16 +117,16 @@ function processMessage(event) {
 
 // look for tour details
 
-function findTour(senderId, formattedMsg) {
+function findTour(userId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-		//	sendMessage(senderId, {text: "Okay boss." + senderID});
+			sendMessage(userId, {text: "Okay boss." + userId});
 			var inputObj = JSON.parse(body);
 			  if (inputObj.Response === "True") {
-               	var query = {user_id: senderId};
+               	var query = {user_id: userId};
                 var update = {
-                   user_id: senderId,
+                   user_id: userId,
                     tour: inputObj.tour,
                     language: inputObj.language,
                     description: inputsObj.description,
@@ -158,26 +158,26 @@ function findTour(senderId, formattedMsg) {
                                 }
                             }
                         };
-                        sendMessage(senderId, message);
+                        sendMessage(userId, message);
                     }
                 });
             } else {
                 console.log(inputObj.Error);
-                sendMessage(senderId, {text: inputObj.Error});
+                sendMessage(userId, {text: inputObj.Error});
             }
         } else {
-            sendMessage(senderId, {text: "Something went wrong. Try again."});
+            sendMessage(userId, {text: "Something went wrong. Try again."});
         }
     });
 }
 
 
-function getTourDetail(senderId, field) {
-  Input.findOne({user_id: senderId}, function(err, tour) {
+function getTourDetail(userId, field) {
+  Input.findOne({user_id: userId}, function(err, tour) {
     if(err) {
-      sendMessage(senderId, {text: "Something went wrong. Try again"});
+      sendMessage(userId, {text: "Something went wrong. Try again"});
     } else {
-      sendMessage(senderId, {text: tour[field]});
+      sendMessage(userId, {text: tour[field]});
     }
   });
 }
