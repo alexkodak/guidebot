@@ -117,8 +117,8 @@ function processMessage(event) {
 
 // look for tour details
 
-function findTour(userId, formattedMsg) {
-	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
+function findTour(userId, tours) {
+	   request("https://blooming-wave-81088.herokuapp.com/tours/" + tours, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
 			sendMessage(userId, {text: "well received boss." + userId});
