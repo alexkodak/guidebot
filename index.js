@@ -51,7 +51,7 @@ app.post("/webhook", function (req, res) {
 
 
 function processPostback(event) {
-senderId = event.sender.id;
+	var senderId = event.sender.id;
   var payload = event.postback.payload;
 
   if (payload === "Greeting") {
@@ -107,7 +107,7 @@ function processMessage(event) {
 			break;
         default:
 		  findTour(senderId, formattedMsg);
-		  sendMessage(senderId, {text: "Okay boss." + formattedMsg});
+		  sendMessage(senderId, {text: "Okay boss." + senderId});
       }
     } else if (message.attachments) {
       sendMessage(senderId, {text: "Sorry, I don't understand your request."});
@@ -117,13 +117,12 @@ function processMessage(event) {
 
 // look for tour details
 
-function findTour(senderId, formattedMsg) {
+function findTour(event, senderId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-			sendMessage(senderId, {text: "Okay boss." + senderID});
-			var json = body,
-				inputObj = JSON.parse(json);
+		//	sendMessage(senderId, {text: "Okay boss." + senderID});
+			var inputObj = JSON.parse(body);
 			  if (inputObj.Response === "True") {
                	var query = {user_id: senderId};
                 var update = {
