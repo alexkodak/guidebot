@@ -117,6 +117,9 @@ function processMessage(event) {
 
 // look for tour details
 
+var senderId = event.sender.id;
+var formattedMsg = message.text.toLowerCase().trim();
+ 
 function findTour(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
@@ -124,8 +127,7 @@ function findTour(senderId, formattedMsg) {
 			var json = body,
 				inputObj = JSON.parse(json);
 			  if (inputObj.Response === "True") {
-                var senderId = event.sender.id;
-				var query = {user_id: senderId};
+               				var query = {user_id: senderId};
                 var update = {
                 //    user_id: senderId,
                     tour: inputObj.tour,
