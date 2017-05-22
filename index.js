@@ -106,6 +106,7 @@ function processMessage(event) {
 	  getTourDetail(senderId, formattedMsg);
 			break;
         default:
+		var senderId = event.sender.id;
           findTour(senderId, formattedMsg);
 		  sendMessage(senderId, {text: "Okay boss." + formattedMsg});
       }
@@ -118,7 +119,6 @@ function processMessage(event) {
 // look for tour details
 
 function findTour(senderId, formattedMsg) {
-	var senderId = event.sender.id;
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
