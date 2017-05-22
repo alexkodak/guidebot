@@ -117,12 +117,13 @@ function processMessage(event) {
 
 // look for tour details
 
-function findTour(userId, tours) {
-	   request("https://blooming-wave-81088.herokuapp.com/tours/" + tours, function (error, response, body) {
+function findTour(userId, formattedMsg) {
+	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-			sendMessage(userId, {text: "well received boss." + userId});
+			sendMessage(userId, {text: "well received userId is:" + userId});
 			var inputObj = JSON.parse(body);
+			sendMessage(userId, {text: "well received input is:" + inputObj});
 			  if (inputObj.Response === "True") {
                	var query = {user_id: userId};
                 var update = {
@@ -132,7 +133,8 @@ function findTour(userId, tours) {
                     description: inputsObj.description,
                 };
                 var options = {upsert: true};
-              
+              sendMessage(userId, {text: "well received query is:" + query});
+			  sendMessage(userId, {text: "well received update is:" + update});
 				Input.findOneAndUpdate(query, update, options, function(err, Input) {
 				  if (err) {
                         console.log("Database error: " + err);
