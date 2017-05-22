@@ -123,20 +123,14 @@ function findTour(userId, formattedMsg) {
 			console.log("connection ok" + body);
 			console.log("userId is:" + userId);
 	
-			var body = '';
-
-			response.on('data', function(chunk) {
-			body += chunk;
-			});
-
-			response.on('end', function() {
-		
+			
 			var inputObj = JSON.parse(body);
+			res.inputObj(inputObj.Response);
 			console.log("tour is:" + inputObj.tour);
 			console.log("language is:" + inputObj.language);
 			console.log("description is:" + inputObj.description);
 			console.log("inputObj is:" + inputObj);
-	  });
+	
 			if (inputObj.Response === "True") {
                	var query = {user_id: userId};
                 var update = {
