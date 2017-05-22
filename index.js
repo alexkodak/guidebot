@@ -106,23 +106,9 @@ function processMessage(event) {
 	  getTourDetail(senderId, formattedMsg);
 			break;
         default:
-          findTour(senderId, formattedMsg);
-		  sendMessage(senderId, {text: "Okay boss." + formattedMsg});
-      }
-    } else if (message.attachments) {
-      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
-    }
-  }
-}
-
-// look for tour details
-
-
- 
-function findTour(senderId, formattedMsg) {
-	var senderId = event.sender.id;
-	var formattedMsg = message.text.toLowerCase().trim();
-    request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
+           sendMessage(senderId, {text: "Okay boss." + formattedMsg});
+		   function findTour(senderId, formattedMsg) {
+	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
 			var json = body,
@@ -174,6 +160,15 @@ function findTour(senderId, formattedMsg) {
         }
     });
 }
+      }
+    } else if (message.attachments) {
+      sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+    }
+  }
+}
+
+// look for tour details
+
 
 
 function getTourDetail(senderId, field) {
