@@ -121,7 +121,7 @@ function findTour(userId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-			sendMessage(userId, {text: "Okay boss." + userId});
+			sendMessage(userId, {text: "well received boss." + userId});
 			var inputObj = JSON.parse(body);
 			  if (inputObj.Response === "True") {
                	var query = {user_id: userId};
