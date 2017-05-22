@@ -106,8 +106,7 @@ function processMessage(event) {
 	  getTourDetail(senderId, formattedMsg);
 			break;
         default:
-		var senderId = event.sender.id;
-          findTour(senderId, formattedMsg);
+		  findTour(senderId, formattedMsg);
 		  sendMessage(senderId, {text: "Okay boss." + formattedMsg});
       }
     } else if (message.attachments) {
@@ -135,7 +134,7 @@ function findTour(senderId, formattedMsg) {
                 };
                 var options = {upsert: true};
               
-				Input.findOneAndUpdate(query, update, options, function(err, mov) {
+				Input.findOneAndUpdate(query, update, options, function(err, item) {
 				  if (err) {
                         console.log("Database error: " + err);
                     } else {
