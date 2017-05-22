@@ -123,7 +123,9 @@ function findTour(userId, formattedMsg) {
 			console.log("connection ok" + body);
 			console.log("well received userId is:" + userId);
 			var inputObj = JSON.parse(body);
-			console.log("well received input is:" + JSON.stringify(inputObj));
+			console.log("well received tour is:" + inputObj.tour);
+			console.log("well received language is:" + inputObj.language);
+			console.log("well received description is:" + inputObj.description);
 			  if (inputObj.tour === "True") {
                	var query = {user_id: userId};
                 var update = {
