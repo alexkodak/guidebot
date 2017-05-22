@@ -121,12 +121,12 @@ function findTour(userId, formattedMsg) {
 	   request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
-			console.log("well received userId is:" + userId);
+			console.log("userId is:" + userId);
 			var inputObj = JSON.parse(body);
-			console.log("well received tour is:" + inputObj.tour);
-			console.log("well received language is:" + inputObj.language);
-			console.log("well received description is:" + inputObj.description);
-			  if (JSON.parse(body).response === "True") {
+			console.log("tour is:" + inputObj.tour);
+			console.log("language is:" + inputObj.language);
+			console.log("description is:" + inputObj.description);
+			  if (inputObj.Response === "True") {
                	var query = {user_id: userId};
                 var update = {
                    user_id: userId,
