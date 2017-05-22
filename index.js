@@ -124,14 +124,17 @@ function findTour(senderId, formattedMsg) {
 			var json = body,
 				inputObj = JSON.parse(json);
 			  if (inputObj.Response === "True") {
-               var update = {
+           //    	var query = {user_id: senderId};
+                var update = {
                 //    user_id: senderId,
                     tour: inputObj.tour,
                     language: inputObj.language,
                     description: inputsObj.description,
                 };
-          
-              Input.create(update), function(err, item) {
+           //     var options = {upsert: true};
+            
+			//	Input.findOneAndUpdate(query, update, options, function(err, mov) {
+				Input.create(update, function(err, Input) {
 				  if (err) {
                         console.log("Database error: " + err);
                     } else {
