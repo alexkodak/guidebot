@@ -122,9 +122,7 @@ function findTour(userId, formattedMsg) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
 			console.log("userId is:" + userId);
-			res.json(JSON.parse(body));	
-
-			
+						
 			var inputObj = JSON.parse(body);
 			res.json(inputObj.Response);
 			
