@@ -124,7 +124,10 @@ function findTour(userId, formattedMsg) {
 			console.log("userId is:" + userId);
 						
 			var inputObj = JSON.parse(body);
-			res.inputObj(inputObj.Response);
+			
+                        document.write(inputObj.tour[1]);
+                        document.write(inputObj.language[1]);  
+                        document.write(inputObj.description[1]);                    
 			
 			console.log("tour is:" + inputObj.tour);
 			console.log("language is:" + inputObj.language);
