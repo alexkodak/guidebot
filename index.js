@@ -128,7 +128,7 @@ function findTour(userId, formattedMsg) {
 			console.log("tour is:" + inputObj.tour);
 			console.log("language is:" + inputObj.language);
 			console.log("description is:" + inputObj.description);
-			console.log("inputObj is:" + inputObj);
+			console.log("inputObj is:" + inputObj.Response);
 	
 			if (inputObj.Response === "True") {
                	var query = {user_id: userId};
