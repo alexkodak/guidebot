@@ -122,9 +122,12 @@ function findTour(userId, formattedMsg) {
         if (!error && response.statusCode == 200) {
 			console.log("connection ok" + body);
 			console.log("userId is:" + userId);
-			var json = JSON.stringify(body);		
-			var inputObj = JSON.parse(json);                                   
-			
+				
+			var inputObj = JSON.parse(body);                                   
+			inputObj.tour = new string(inputObj.tour)
+                        inputObj.language = new string(inputObj.language)
+                        inputObj.description = new string(inputObj.description)
+                        
 			console.log("tour is:" + inputObj.tour);
 			console.log("language is:" + inputObj.language);
 			console.log("description is:" + inputObj.description);
@@ -136,7 +139,7 @@ function findTour(userId, formattedMsg) {
                    user_id: userId,
                     tour: inputObj.tour,
                     language: inputObj.language,
-                    description: inputsObj.description,
+                    description: inputObj.description,
                 };
                 var options = {upsert: true};
 				console.log("inputObj is true");
