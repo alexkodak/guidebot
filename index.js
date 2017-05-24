@@ -129,7 +129,7 @@ function findTour(userId, formattedMsg) {
             console.log("language is:" + inputObj.language);
             console.log("description is:" + inputObj.description);
             
-            if (inputObj.tour === "True") {
+            if(inputObj.hasOwnProperty('tour')) {
                 var query = {user_id: userId};
                 var update = {
                     user_id: userId,
