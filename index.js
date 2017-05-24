@@ -138,9 +138,8 @@ function findTour(userId, formattedMsg) {
                     description: inputObj.description,
                 };
                 var options = {upsert: true};
-                console.log("inputObj is true");
-                console.log("query is:" + query);
-                console.log("update is:" + update);
+                console.log("valid tour requested");
+                
                 Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
@@ -151,7 +150,7 @@ function findTour(userId, formattedMsg) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                            title: inputObj.tour,
+                                            title: inputObj.description + inputObj.language,
                                             subtitle: "Is this the tour are looking for?",
                                             buttons: [{
                                                     type: "postback",
