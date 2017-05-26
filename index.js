@@ -100,7 +100,8 @@ function processMessage(event) {
             // If we receive a text message, check it it's a caption or a tour
             
              var processedMsg = JSON.parse(formattedMsg);
-             var processedTxt = processedMsg.text
+             var processedTxt = processedMsg.text;
+            console.log("Extracted Text is: " + processedTxt);
             
              switch  (Object.keys(processedTxt).length)                   
                                              
