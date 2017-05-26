@@ -97,16 +97,16 @@ function processMessage(event) {
         if (message.text) {
             var formattedMsg = message.text.toLowerCase().trim();
 
-            // If we receive a text message, check to see if it matches any special
-            // keywords and send back the corresponding movie detail.
-            // Otherwise, search for new movie.
-            switch (formattedMsg) {
-                case "caption":
-                    findCaption(senderId, formattedMsg);
+            // If we receive a text message, check it it's a caption or a tour
+            
+            switch (formattedMsg.str.length) {
+                case 8:
+                findTour(senderId, formattedMsg);
+                sendMessage(senderId, {text: "Okay, we are looking for tour " + formattedMsg});
                     break;
                 default:
-                    findTour(senderId, formattedMsg);
-                    sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
+                    findCaption(senderId, formattedMsg);
+                    sendMessage(senderId, {text: "Okay, we are looking for caption: " + formattedMsg});
             }
         } else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
