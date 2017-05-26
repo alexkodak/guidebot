@@ -166,6 +166,8 @@ function findTour(userId, formattedMsg) {
                             }
                         };
                         sendMessage(userId, message);
+                        sendMessage("Please enter the number of the caption you are looking for");
+                        findTour(senderId, formattedMsg);
                     }
                 });
             } else {
