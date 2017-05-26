@@ -101,10 +101,8 @@ function processMessage(event) {
             // keywords and send back the corresponding movie detail.
             // Otherwise, search for new movie.
             switch (formattedMsg) {
-                case "tour":
-                case "language":
-                case "description":
-                    getTourDetail(senderId, formattedMsg);
+                case "caption":
+                    findCaption(senderId, formattedMsg);
                     break;
                 default:
                     findTour(senderId, formattedMsg);
@@ -181,7 +179,7 @@ function findTour(userId, formattedMsg) {
 }
 
 
-function getTourDetail(userId, field) {
+/* function getTourDetail(userId, field) {
     Input.findOne({user_id: userId}, function (err, tour) {
         if (err) {
             sendMessage(userId, {text: "Something went wrong. Try again"});
@@ -191,10 +189,12 @@ function getTourDetail(userId, field) {
     });
 }
 
+*/
+
 // look for caption details
 
-function findCaption(userId, formattedMsg2) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg2, function (error, response, body, res) {
+function findCaption(userId, formattedMsg) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);+
