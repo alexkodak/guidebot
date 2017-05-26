@@ -78,8 +78,8 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-    //    var formattedMsg = event.message.text.toLowerCase().trim();
-     //       findTour(senderId, formattedMsg2);
+        var formattedMsg = event.message.text.toLowerCase().trim();
+            findTour(senderId, formattedMsg2);
         
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -201,7 +201,7 @@ function findCaption(userId, formattedMsg2) {
            
             console.log("connection ok" + body);+
           
-            var captionObj = JSON.parse(body);
+         //   var captionObj = JSON.parse(body);
          
             console.log("tour is:" + inputObj.tour);
             console.log("caption is:" + captionObj.caption);
