@@ -77,7 +77,7 @@ function processPostback(event) {
             sendMessage(senderId, {text: message});
         });
     } else if (payload === "Correct") {
-        sendMessage(senderId, {text: "Awesome!"});
+        sendMessage(senderId, {text: "Great!"});
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
@@ -135,7 +135,7 @@ function findTour(userId, formattedMsg) {
                     user_id: userId,
                     tour: inputObj.tour,
                     language: inputObj.language,
-                    description: inputObj.description,
+                    tour_description: inputObj.description,
                 };
                 var options = {upsert: true};
                 console.log("valid tour requested");
@@ -150,7 +150,7 @@ function findTour(userId, formattedMsg) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                            title: inputObj.description + inputObj.language,
+                                            title: inputObj.description + " - " + inputObj.language,
                                             subtitle: "Is this the tour are looking for?",
                                             buttons: [{
                                                     type: "postback",
@@ -188,6 +188,66 @@ function getTourDetail(userId, field) {
         }
     });
 }
+
+// look for caption details
+
+function findCaption(userId, formattedMsg) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+        if (!error && response.statusCode == 200) {
+           
+            console.log("connection ok" + body);+
+          
+            var captionObj = JSON.parse(body);
+         
+            console.log("tour is:" + inputObj.tour);
+            console.log("caption is:" + captionObj.caption);
+           
+            
+            if(captionObj.hasOwnProperty('caption')) {
+                var query = {user_id: userId};
+                var update = {
+                    user_id: userId,
+                    tour: inputObj.tour,
+                    language: inputObj.language,
+                    tour_description: inputObj.description,
+                    caption: captionObj.caption,
+                    caption_description: captionObj.description,
+                };
+                var options = {upsert: true};
+                
+                console.log("valid caption requested");
+                
+                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                        message = {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: [{
+                                            title: "caption: " + captionObj.caption,
+                                            text: captionObj.description,
+                                           
+                                        }]
+                                }
+                            }
+                        };
+                        sendMessage(userId, message);
+                    }
+                });
+            } else {
+                console.log(inputObj.Error);
+                sendMessage(userId, {text: inputObj.Error});
+            }
+        } else {
+            sendMessage(userId, {text: "Something went wrong. Try again."});
+        }
+    });
+}
+
+
 
 
 // sends message to user
