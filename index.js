@@ -77,7 +77,10 @@ function processPostback(event) {
             sendMessage(senderId, {text: message});
         });
     } else if (payload === "Correct") {
-        sendMessage(senderId, {text: "Great!"});
+        sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
+        var formattedMsg = event.message.text.toLowerCase().trim();
+         findTour(senderId, formattedMsg2);
+        
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
@@ -166,8 +169,7 @@ function findTour(userId, formattedMsg) {
                             }
                         };
                         sendMessage(userId, message);
-                    //    sendMessage("Please enter the number of the caption you are looking for");
-                    //    findTour(senderId, formattedMsg);
+                   
                     }
                 });
             } else {
@@ -191,10 +193,10 @@ function getTourDetail(userId, field) {
     });
 }
 
-/* look for caption details
+// look for caption details
 
-function findCaption(userId, formattedMsg) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+function findCaption(userId, formattedMsg2) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg2, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);+
@@ -249,7 +251,7 @@ function findCaption(userId, formattedMsg) {
     });
 }
 
-*/
+
 
 
 // sends message to user
