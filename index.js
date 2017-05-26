@@ -78,8 +78,8 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-        var formattedMsg = event.message.text.toLowerCase().trim();
-         findTour(senderId, formattedMsg2);
+    //    var formattedMsg = event.message.text.toLowerCase().trim();
+     //       findTour(senderId, formattedMsg2);
         
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
