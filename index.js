@@ -166,8 +166,8 @@ function findTour(userId, formattedMsg) {
                             }
                         };
                         sendMessage(userId, message);
-                        sendMessage("Please enter the number of the caption you are looking for");
-                        findTour(senderId, formattedMsg);
+                    //    sendMessage("Please enter the number of the caption you are looking for");
+                    //    findTour(senderId, formattedMsg);
                     }
                 });
             } else {
@@ -191,7 +191,7 @@ function getTourDetail(userId, field) {
     });
 }
 
-// look for caption details
+/* look for caption details
 
 function findCaption(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
@@ -249,7 +249,7 @@ function findCaption(userId, formattedMsg) {
     });
 }
 
-
+*/
 
 
 // sends message to user
