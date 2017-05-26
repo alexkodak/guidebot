@@ -96,23 +96,20 @@ function processMessage(event) {
         // You may get a text or attachment but not both
         if (message.text) {
             var formattedMsg = message.text.toLowerCase().trim();
-
-            // If we receive a text message, check it it's a caption or a tour
             
-          //   var processedMsg = JSON.parse(formattedMsg);
-             var processedTxt = formattedMsg.text;
-            console.log("Extracted Text is: " + processedTxt);
             
-             switch  (Object.keys(processedTxt).length)                   
-                                             
-            {
-                case 8:
-                findTour(senderId, formattedMsg);
-                sendMessage(senderId, {text: "Okay, we are looking for tour " + formattedMsg});
+// If we receive a text message, check to see if it matches any special
+            // keywords and send back the corresponding movie detail.
+            // Otherwise, search for new movie.
+            switch (formattedMsg) {
+                case "tour":
+                case "language":
+                case "description":
+                    getTourDetail(senderId, formattedMsg);
                     break;
                 default:
-                    findCaption(senderId, formattedMsg);
-                    sendMessage(senderId, {text: "Okay, we are looking for caption: " + formattedMsg});
+                    findTour(senderId, formattedMsg);
+                    sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
             }
         } else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
