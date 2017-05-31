@@ -103,11 +103,11 @@ function processMessage(event) {
             switch (formattedMsg.length) {
                 case 8: 
                     findTour(senderId, formattedMsg);
-               //     sendMessage(senderId, {text: "Okay, we are looking for tour " + formattedMsg});
+                    sendMessage(senderId, {text: "Okay, we are looking for tour " + formattedMsg});
                     break; // otherwise check if it's a caption
                 default:
                     findCaption(senderId, formattedMsg);
-               //     sendMessage(senderId, {text: "Okay, we are looking for caption " + formattedMsg});
+                    sendMessage(senderId, {text: "Okay, we are looking for caption " + formattedMsg});
                     
             }
         } else if (message.attachments) {
