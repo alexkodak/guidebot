@@ -101,7 +101,7 @@ function processMessage(event) {
 // If we receive a text message, check to see if it matches any special
             // keywords and send back the corresponding movie detail.
             // Otherwise, search for new movie.
-            switch (formatedMsg.length) {
+            switch (formattedMsg.length) {
                 case 8: 
                     findTour(senderId, formattedMsg);
                     sendMessage(senderId, {text: "Okay, we are looking for tour " + formattedMsg});
