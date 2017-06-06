@@ -1,11 +1,9 @@
-/* global InputObj, inputObj, captionObj */
-
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
+var db = mongoose.connect(process.env.MONGODB_URI);
 var Input = require("./models/input");
 
 var app = express();
@@ -101,8 +99,8 @@ function processMessage(event) {
             
             
 // If we receive a text message, check to see if it matches any special
-            // keywords and send back the corresponding tour detail.
-            // Otherwise, search for new tour.
+            // keywords and send back the corresponding movie detail.
+            // Otherwise, search for new movie.
             switch (formattedMsg) {
                 case "tour":
                 case "language":
@@ -122,10 +120,7 @@ function processMessage(event) {
 // look for tour details
 
 function findTour(userId, formattedMsg) {
-    
-    if (formattedMsg.length == 8) {
-        
- request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
+    request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);
@@ -183,11 +178,25 @@ function findTour(userId, formattedMsg) {
         } else {
             sendMessage(userId, {text: "Something went wrong. Try again."});
         }
-    }); 
-} 
-else {
+    });
+}
 
-request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+
+/* function getTourDetail(userId, field) {
+    Input.findOne({user_id: userId}, function (err, tour) {
+        if (err) {
+            sendMessage(userId, {text: "Something went wrong. Try again"});
+        } else {
+            sendMessage(userId, {text: tour[field]});
+        }
+    });
+}
+*/
+
+// look for caption details
+
+function findCaption(userId, formattedMsg) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);+
@@ -206,7 +215,7 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + 
                     language: inputObj.language,
                     tour_description: inputObj.description,
                     caption: captionObj.caption,
-                    caption_description: captionObj.description
+                    caption_description: captionObj.description,
                 };
                 var options = {upsert: true};
                 
@@ -223,7 +232,7 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + 
                                     template_type: "generic",
                                     elements: [{
                                             title: "caption: " + captionObj.caption,
-                                            text: captionObj.description
+                                            text: captionObj.description,
                                            
                                         }]
                                 }
@@ -243,15 +252,6 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + 
 }
 
 
-function getTourDetail(userId, field) {
-    Input.findOne({user_id: userId}, function (err, tour) {
-        if (err) {
-            sendMessage(userId, {text: "Something went wrong. Try again"});
-        } else {
-            sendMessage(userId, {text: tour[field]});
-        }
-    });
-}
 
 
 // sends message to user
@@ -262,12 +262,11 @@ function sendMessage(recipientId, message) {
         method: "POST",
         json: {
             recipient: {id: recipientId},
-            message: message
+            message: message,
         }
     }, function (error, response, body) {
         if (error) {
             console.log("Error sending message: " + response.error);
         }
     });
-}
 }
