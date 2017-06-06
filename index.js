@@ -185,7 +185,8 @@ function findTour(userId, formattedMsg) {
         }
     });
 } else {
-request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+
+request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);+
