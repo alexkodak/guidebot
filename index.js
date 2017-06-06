@@ -1,3 +1,5 @@
+/* global InputObj, inputObj, captionObj */
+
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
@@ -202,7 +204,7 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + 
                     language: inputObj.language,
                     tour_description: inputObj.description,
                     caption: captionObj.caption,
-                    caption_description: captionObj.description,
+                    caption_description: captionObj.description
                 };
                 var options = {upsert: true};
                 
@@ -219,7 +221,7 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + 
                                     template_type: "generic",
                                     elements: [{
                                             title: "caption: " + captionObj.caption,
-                                            text: captionObj.description,
+                                            text: captionObj.description
                                            
                                         }]
                                 }
@@ -267,7 +269,7 @@ function sendMessage(recipientId, message) {
         method: "POST",
         json: {
             recipient: {id: recipientId},
-            message: message,
+            message: message
         }
     }, function (error, response, body) {
         if (error) {
