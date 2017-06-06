@@ -5,7 +5,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-var db = mongoose.connect(process.env.MONGODB_URI);
+var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
 var Input = require("./models/input");
 
 var app = express();
@@ -125,7 +125,7 @@ function findTour(userId, formattedMsg) {
     
     if (formattedMsg.length == 8) {
         
-    request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
+ request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);
@@ -183,8 +183,9 @@ function findTour(userId, formattedMsg) {
         } else {
             sendMessage(userId, {text: "Something went wrong. Try again."});
         }
-    });
-} else {
+    }); 
+} 
+else {
 
 request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
@@ -240,9 +241,9 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + 
         }
     });
 }
-}
 
-/* function getTourDetail(userId, field) {
+
+function getTourDetail(userId, field) {
     Input.findOne({user_id: userId}, function (err, tour) {
         if (err) {
             sendMessage(userId, {text: "Something went wrong. Try again"});
@@ -251,15 +252,6 @@ request("https://blooming-wave-81088.herokuapp.com/captions/" + inputObj.tour + 
         }
     });
 }
-
-*/
-
-// look for caption details
-
-       //function findCaption(userId, formattedMsg) {
-    
-
-
 
 
 // sends message to user
@@ -278,3 +270,5 @@ function sendMessage(recipientId, message) {
         }
     });
 }
+};
+
