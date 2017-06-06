@@ -99,8 +99,8 @@ function processMessage(event) {
             
             
 // If we receive a text message, check to see if it matches any special
-            // keywords and send back the corresponding movie detail.
-            // Otherwise, search for new movie.
+            // keywords and send back the corresponding tour detail.
+            // Otherwise, search for new tour.
             switch (formattedMsg) {
                 case "tour":
                 case "language":
@@ -120,6 +120,9 @@ function processMessage(event) {
 // look for tour details
 
 function findTour(userId, formattedMsg) {
+    
+    if (formattedMsg.length('8')) {
+        
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
@@ -179,25 +182,8 @@ function findTour(userId, formattedMsg) {
             sendMessage(userId, {text: "Something went wrong. Try again."});
         }
     });
-}
-
-
-/* function getTourDetail(userId, field) {
-    Input.findOne({user_id: userId}, function (err, tour) {
-        if (err) {
-            sendMessage(userId, {text: "Something went wrong. Try again"});
-        } else {
-            sendMessage(userId, {text: tour[field]});
-        }
-    });
-}
-
-*/
-
-// look for caption details
-
-function findCaption(userId, formattedMsg) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+} else {
+request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok" + body);+
@@ -251,6 +237,24 @@ function findCaption(userId, formattedMsg) {
         }
     });
 }
+}
+
+/* function getTourDetail(userId, field) {
+    Input.findOne({user_id: userId}, function (err, tour) {
+        if (err) {
+            sendMessage(userId, {text: "Something went wrong. Try again"});
+        } else {
+            sendMessage(userId, {text: tour[field]});
+        }
+    });
+}
+
+*/
+
+// look for caption details
+
+       //function findCaption(userId, formattedMsg) {
+    
 
 
 
