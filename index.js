@@ -270,3 +270,4 @@ function sendMessage(recipientId, message) {
         }
     });
 }
+}
