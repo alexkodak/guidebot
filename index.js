@@ -100,9 +100,9 @@ function processMessage(event) {
             
 // If we receive a text message, check to see if we already now this user
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
-                var userObj = JSON.parse(body);   
+                   
                   
-		if(userObj.hasOwnProperty('tour')) {
+		if(body.hasOwnProperty()) {
                 findCaption(senderId, formattedMsg); 
               
                 } 
