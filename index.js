@@ -103,7 +103,7 @@ function processMessage(event) {
                    
                   
 		if(body.hasOwnProperty()) {
-                console.log("tour is:" + body); 
+                findCaption(senderId, formattedMsg); 
               
                 } 
                 else {
@@ -190,11 +190,11 @@ function findTour(userId, formattedMsg) {
 
 // look for caption details
 
-function findCaption(userId, formattedMsg) {
-    request("https://blooming-wave-81088.herokuapp.com/inputs/" + userId, function (error, response, body, res) {
-          if (!error && response.statusCode == 200) {
-            var userObj = JSON.parse(body);            
-            console.log("tour is:" + userObj.tour);         
+function findCaption(senderId, formattedMsg) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+        if (!error && response.statusCode == 200) {
+           
+            console.log("connection ok" + body)        
 }
 
 else {
