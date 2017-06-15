@@ -192,58 +192,7 @@ function findCaption(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + userId, function (error, response, body, res) {
           if (!error && response.statusCode == 200) {
             var userObj = JSON.parse(body);            
-            console.log("tour is:" + userObj.tour);
-           
-               request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
-                 if (!error && response.statusCode == 200) {
-                 console.log("connection ok" + body);+
-              //     var captionObj = JSON.parse(body);
-                  console.log("tour is:" + inputObj.tour);
-                  console.log("caption is:" + captionObj.caption);
-           
-            
-                         if(captionObj.hasOwnProperty('caption')) {
-                         var query = {user_id: userId};
-                         var update = {
-                             user_id: userId,
-                             tour: inputObj.tour,
-                             language: inputObj.language,
-                             tour_description: inputObj.description,
-                            caption: captionObj.caption,
-                            caption_description: captionObj.description,
-                            };
-                          var options = {upsert: true};
-                
-                         console.log("valid caption requested");
-                
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                        message = {
-                            attachment: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: [{
-                                            title: "caption: " + captionObj.caption,
-                                            text: captionObj.description,
-                                           
-                                        }]
-                                }
-                            }
-                        };
-                        sendMessage(userId, message);
-                    }
-                });
-            } else {
-                console.log(inputObj.Error);
-                sendMessage(userId, {text: inputObj.Error});
-            }
-        } else {
-            sendMessage(userId, {text: "Something went wrong. Try again."});
-        }
-    });
+            console.log("tour is:" + userObj.tour);         
 }
 
 else {
