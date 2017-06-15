@@ -191,8 +191,8 @@ function findTour(userId, formattedMsg) {
 function findCaption(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + userId, function (error, response, body, res) {
           if (!error && response.statusCode == 200) {
-            var userObj = JSON.parse(body);            
-            console.log("tour is:" + userObj.tour);         
+         //   var userObj = JSON.parse(body);            
+            console.log("tour is:" + body);
 }
 
 else {
