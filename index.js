@@ -3,7 +3,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-var db = mongoose.connect(process.env.MONGODB_URI);
+var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
 var Input = require("./models/input");
 
 var app = express();
@@ -100,27 +100,23 @@ function processMessage(event) {
             
 // If we receive a text message, check to see if we already now this user
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
-        if (!error && response.statusCode == 200) {
+		if (!error && response.statusCode == 200) {
                 console.log("connection ok" + body);
-                findCaption(senderId, formattedMsg);
-                    break;
-                default:
+           //     findCaption(senderId, formattedMsg);
+                } 
+                else {
                     findTour(senderId, formattedMsg);
                     sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
-            }
-        } else if (message.attachments) {
+           } 
+        });
+    }
+	
+	else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
 }
 
-// look for users
-
-function findUser(senderId) {
-    request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
-        if (!error && response.statusCode == 200) {
-           
-            console.log("connection ok" + body);
 
 
 // look for tour details
