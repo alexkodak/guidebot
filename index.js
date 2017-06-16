@@ -209,7 +209,7 @@ function findCaption(senderId, formattedMsg) {
                 name = userObj.tour;
                  console.log("connection ok, registered tour is" + userObj.tour)
             }
-  });
+  }),
     request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
             console.log("connection ok" + body);
