@@ -194,7 +194,7 @@ function findTour(userId, formattedMsg) {
 // look for caption details
 
 function findCaption(senderId, formattedMsg) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok, registered tour is" + body)
