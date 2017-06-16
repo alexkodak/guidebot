@@ -203,17 +203,27 @@ function findCaption(senderId, formattedMsg) {
             } else {
                 var userObj = JSON.parse(body);
                 console.log("connection ok, registered tour is" + userObj.tour)
-                request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
-        if (!error && response.statusCode == 200) {
+                request({
+            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg,
+            qs: {
+                fields: "description"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
             console.log("connection ok" + body);
             }
-      
-else {
+        });
+}
+
+/* else {
             sendMessage(userId, {text: "Something went wrong. Try again."});
         }
   });
 }
-  
+ */ 
 
 // sends message to user
 function sendMessage(recipientId, message) {
