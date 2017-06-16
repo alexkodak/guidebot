@@ -102,7 +102,7 @@ function processMessage(event) {
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
                    
                   
-		if(body.hasOwnProperty()) {
+		if(body.hasOwnProperty('tour')) {
                 findCaption(senderId, formattedMsg); 
               
                 } 
@@ -194,7 +194,7 @@ function findCaption(senderId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/captions/" + InputObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
-            console.log("connection ok" + body)        
+            console.log("connection ok, registered tour is" + body)
 }
 
 else {
