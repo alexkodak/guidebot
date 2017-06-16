@@ -100,8 +100,9 @@ function processMessage(event) {
 // If we receive a text message, check to see if we already now this user
     request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
                    
+                console.log("user checked, content is " + body);
                 var userObj = JSON.parse(body);
-                console.log("Registered tour is " + userObj.tour);
+                console.log("JSON Parsed, tour is " + userObj.tour);
                 
                 if(userObj.hasOwnProperty('tour')) {
                 findCaption(senderId, formattedMsg); 
@@ -202,11 +203,11 @@ function findCaption(senderId, formattedMsg) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                var tourObj = JSON.parse(body);
-                console.log("connection ok, registered tour is" + tourObj.tour)
+                var userObj = JSON.parse(body);
+                console.log("connection ok, registered tour is" + userObj.tour)
             }
   }),
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tourObj.tour + "/" + formattedMsg, function (error, response, body, res) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
             console.log("connection ok" + body);
            
