@@ -1,3 +1,5 @@
+/* global userObj */
+
 var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
@@ -48,7 +50,6 @@ app.post("/webhook", function (req, res) {
         res.sendStatus(200);
     }
 });
-
 
 function processPostback(event) {
     var senderId = event.sender.id;
@@ -194,10 +195,25 @@ function findTour(userId, formattedMsg) {
 // look for caption details
 
 function findCaption(senderId, formattedMsg) {
+    request({
+            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+            qs: {
+                fields: "tour"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+                var userObj = JSON.parse(body);
+                name = userObj.tour;
+                 console.log("connection ok, registered tour is" + userObj.tour)
+            }
+  });
     request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
+            console.log("connection ok" + body);
            
-            console.log("connection ok, registered tour is" + body)
 }
 
 else {
