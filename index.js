@@ -77,7 +77,8 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-                
+        findCaption(senderId, event.message);
+                        
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
@@ -126,7 +127,7 @@ function findTour(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
-            console.log("connection ok" + body);
+            console.log("connection ok, looking for tour" + body);
           
             var inputObj = JSON.parse(body);
          
