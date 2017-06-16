@@ -216,14 +216,10 @@ function findCaption(senderId, formattedMsg) {
             console.log("connection ok" + body);
             }
         });
-}
 
-/* else {
-            sendMessage(userId, {text: "Something went wrong. Try again."});
-        }
-  });
 }
- */ 
+});
+}
 
 // sends message to user
 function sendMessage(recipientId, message) {
@@ -233,11 +229,13 @@ function sendMessage(recipientId, message) {
         method: "POST",
         json: {
             recipient: {id: recipientId},
-            message: message,
+            message: message
         }
     }, function (error, response, body) {
         if (error) {
             console.log("Error sending message: " + response.error);
-        }
+        } else {
+            console.log("message ok");
+      }
     });
-}
+ }
