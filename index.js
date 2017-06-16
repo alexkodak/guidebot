@@ -213,7 +213,9 @@ function findCaption(senderId, formattedMsg) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-            console.log("connection ok" + body);
+           var captionObj = JSON.parse(body);
+           console.log("description is:" + captionObj.description);
+           sendMessage(senderId, {text: captionObj.description});
             }
         });
 
