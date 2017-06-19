@@ -104,6 +104,28 @@ function sendMessage(recipientId, message) {
     });
  }
 
+
+function processMessage(event) {
+    if (!event.message.is_echo) {
+        var message = event.message;
+        var senderId = event.sender.id;
+
+        console.log("Received message from senderId: " + senderId);
+        console.log("Message is: " + JSON.stringify(message));
+
+        // You may get a text or attachment but not both
+        if (message.text) {
+            var formattedMsg = message.text.toLowerCase().trim();
+            checkTourValue();            
+}
+	
+	else if (message.attachments) {
+            sendMessage(senderId, {text: "Sorry, I don't understand your request."});
+        }
+    }
+}
+
+
 // We check if the user already started a tour
 function checkTourValue(senderId, ReturnTourValue) {
    request({
@@ -138,27 +160,6 @@ function ReturnTourValue(error, response, body, res, event) {
                     findTour(senderId, formattedMsg);
                     sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
            } 
-
-function processMessage(event) {
-    if (!event.message.is_echo) {
-        var message = event.message;
-        var senderId = event.sender.id;
-
-        console.log("Received message from senderId: " + senderId);
-        console.log("Message is: " + JSON.stringify(message));
-
-        // You may get a text or attachment but not both
-        if (message.text) {
-            var formattedMsg = message.text.toLowerCase().trim();
-            checkTourValue();            
-}
-	
-	else if (message.attachments) {
-            sendMessage(senderId, {text: "Sorry, I don't understand your request."});
-        }
-    }
-}
-
 
 
 // look for tour details
