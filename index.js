@@ -154,7 +154,7 @@ function ReturnTourValue(body, event) {
     var userObj = JSON.parse(body);
                 if(userObj.hasOwnProperty('tour')) {           
                 console.log("JSON Parsed, tour is " + userObj.tour);          
-                getTour(senderId, formattedMsg, userObj); 
+                getTour(senderId, formattedMsg, userObj, event); 
                               } 
                 else {
                     findTour(senderId, formattedMsg);
@@ -239,7 +239,7 @@ function getTour(senderId,event, userObj) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                console.log("connection ok, registered tour is" + userObj.tour);
+                console.log("connection ok, registered tour is " + userObj.tour);
                 findCaption(error, body, event, userObj)
               }
     });
