@@ -230,7 +230,7 @@ function findTour(userId, formattedMsg) {
 
 // get Tour ID from User input
 
-function getTour(senderId, findCaption) {
+function getTour(senderId,event) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
@@ -241,28 +241,26 @@ function getTour(senderId, findCaption) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                var userObj = JSON.parse(body);
-                console.log("connection ok, registered tour is" + userObj.tour);
+                console.log("connection ok, registered tour is" + body);
+                findCaption(error, body, event)
               }
     });
  }
  
  
-// now get caption from callback 
-
-
-
-function findCaption(error, response) {
+function findCaption(error, body, event) {
+    var formattedMsg = event.message.text.toLowerCase().trim();
+    
                   if (error) {
                 console.log("Error getting caption: " + error);
             } else {
             request({
-            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg,
+            url: "https://blooming-wave-81088.herokuapp.com/captions/" + body + "/" + formattedMsg,
             qs: {
                 fields: "tour"
             },
             method: "GET"
-        }, function (error, response, body) {
+        }, function (error, body) {
             if (error) {
                 console.log("Error getting caption: " + error);
             } else {
