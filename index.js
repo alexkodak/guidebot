@@ -151,12 +151,10 @@ function checkTourValue(senderId, event) {
 function ReturnTourValue(body, event) {
     var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
-
-                if(body.hasOwnProperty('tour')) {   
-                console.log("user checked, content is " + body);
-                var userObj = JSON.parse(body);
+    var userObj = JSON.parse(body);
+                if(userObj.hasOwnProperty('tour')) {           
                 console.log("JSON Parsed, tour is " + userObj.tour);          
-                getTour(senderId, formattedMsg); 
+                getTour(senderId, formattedMsg, userObj); 
                               } 
                 else {
                     findTour(senderId, formattedMsg);
@@ -230,7 +228,7 @@ function findTour(userId, formattedMsg) {
 
 // get Tour ID from User input
 
-function getTour(senderId,event) {
+function getTour(senderId,event, userObj) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
@@ -242,20 +240,20 @@ function getTour(senderId,event) {
                 console.log("Error getting tour: " + error);
             } else {
                 console.log("connection ok, registered tour is" + body);
-                findCaption(error, body, event)
+                findCaption(error, body, event, userObj)
               }
     });
  }
  
  
-function findCaption(error, body, event) {
+function findCaption(error, body, event, userObj) {
     var formattedMsg = event.message.text.toLowerCase().trim();
     
                   if (error) {
                 console.log("Error getting caption: " + error);
             } else {
             request({
-            url: "https://blooming-wave-81088.herokuapp.com/captions/" + body + "/" + formattedMsg,
+            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj + "/" + formattedMsg,
             qs: {
                 fields: "tour"
             },
