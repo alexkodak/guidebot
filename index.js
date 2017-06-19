@@ -115,7 +115,7 @@ function processMessage(event) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-           checkTourValue(senderId, message);            
+           checkTourValue(senderId, message, event);            
 }
 	
 	else if (message.attachments) {
@@ -127,7 +127,7 @@ function processMessage(event) {
 
 
 // We check if the user already started a tour
-function checkTourValue(senderId, event) {
+function checkTourValue(senderId, event, message) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
@@ -140,16 +140,16 @@ function checkTourValue(senderId, event) {
             } else {
                 // var userObj = JSON.parse(body);
                 console.log("existing tour found: " + body);
-                ReturnTourValue(senderId, body, event);
+                ReturnTourValue(senderId, body, event, message);
               }
     });
  }
 
 
 // then we select the correct route based on the stored value
-function ReturnTourValue(senderId, body, event) {
+function ReturnTourValue(senderId, body, event, message) {
    // var senderId = event.sender.id;
-    var formattedMsg = event.message.text.toLowerCase().trim();
+     var formattedMsg = event.message.text.toLowerCase().trim();
     
                 if(body.hasOwnProperty('tour')) {           
                 console.log("JSON Parsed, tour is " + body.tour);          
