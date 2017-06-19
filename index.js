@@ -104,6 +104,26 @@ function sendMessage(recipientId, message) {
     });
  }
 
+
+// We check if the user already started a tour
+function checkTourValue(senderId) {
+   request({
+            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+            qs: {
+                fields: "tour"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+                var userObj = JSON.parse(body);
+                console.log("existing tour found: " + userObj.tour);
+                ReturnTourValue(response, body);
+              }
+    });
+ }
+
  // Process messages received from users
 function processMessage(event, checkTourValue) {
     if (!event.message.is_echo) {
@@ -127,24 +147,7 @@ function processMessage(event, checkTourValue) {
 
 
 
-// We check if the user already started a tour
-function checkTourValue(senderId) {
-   request({
-            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
-            qs: {
-                fields: "tour"
-            },
-            method: "GET"
-        }, function (error, response, body) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } else {
-                var userObj = JSON.parse(body);
-                console.log("existing tour found: " + userObj.tour);
-                ReturnTourValue(response, body);
-              }
-    });
- }
+
 
 
 // then we select the correct route based on the stored value
