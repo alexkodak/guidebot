@@ -239,21 +239,20 @@ function getTour(senderId,event, userObj) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                console.log("connection ok, registered tour is" + body);
+                console.log("connection ok, registered tour is" + userObj.tour);
                 findCaption(error, body, event, userObj)
               }
     });
  }
  
  
-function findCaption(error, body, event, userObj) {
+function findCaption(error, event, userObj) {
     var formattedMsg = event.message.text.toLowerCase().trim();
-    
-                  if (error) {
+                      if (error) {
                 console.log("Error getting caption: " + error);
             } else {
             request({
-            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj + "/" + formattedMsg,
+            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg,
             qs: {
                 fields: "tour"
             },
