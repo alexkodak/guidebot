@@ -99,7 +99,7 @@ function sendMessage(recipientId, message) {
         if (error) {
             console.log("Error sending message: " + response.error);
         } else {
-            console.log("message sent to user" + message);
+            console.log("message sent to user" + JSON.stringify(message));
       }
     });
  }
@@ -128,7 +128,7 @@ function processMessage(event, checkTourValue) {
 
 
 // We check if the user already started a tour
-function checkTourValue(senderId, ReturnTourValue) {
+function checkTourValue(senderId) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
