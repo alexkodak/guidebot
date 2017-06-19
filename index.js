@@ -140,14 +140,14 @@ function checkTourValue(senderId, event) {
             } else {
                 var userObj = JSON.parse(body);
                 console.log("existing tour found: " + userObj.tour);
-                ReturnTourValue(userObj, event);
+                ReturnTourValue(senderId, userObj, event);
               }
     });
  }
 
 
 // then we select the correct route based on the stored value
-function ReturnTourValue(userObj, event) {
+function ReturnTourValue(senderId, userObj, event) {
     var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
     
