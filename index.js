@@ -77,7 +77,7 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-        findCaption(senderId, event.message);
+        getTour(senderId, event.message);
                         
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -104,7 +104,7 @@ function processMessage(event) {
                 console.log("user checked, content is " + body);
                 var userObj = JSON.parse(body);
                 console.log("JSON Parsed, tour is " + userObj.tour);          
-                findCaption(senderId, formattedMsg); 
+                getTour(senderId, formattedMsg); 
                               } 
                 else {
                     findTour(senderId, formattedMsg);
@@ -185,13 +185,10 @@ function findTour(userId, formattedMsg) {
     });
 }
 
+// get Tour ID from User input
 
-
-
-// look for caption details
-
-function findCaption(senderId, formattedMsg) {
-    request({
+function getTour(senderId, findCaption) {
+   request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
                 fields: "tour"
@@ -202,26 +199,42 @@ function findCaption(senderId, formattedMsg) {
                 console.log("Error getting tour: " + error);
             } else {
                 var userObj = JSON.parse(body);
-                console.log("connection ok, registered tour is" + userObj.tour)
-                request({
+                console.log("connection ok, registered tour is" + userObj.tour);
+              }
+    });
+ }
+ 
+ 
+// now get caption from callback 
+
+
+
+function findCaption(error, getTour) {
+    
+    var senderId = event.sender.id;
+    var message = event.message;
+    var formattedMsg = message.text.toLowerCase().trim();
+            if (error) {
+                console.log("Error getting caption: " + error);
+            } else {
+            request({
             url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg,
             qs: {
-                fields: "description"
+                fields: "tour"
             },
             method: "GET"
         }, function (error, response, body) {
             if (error) {
-                console.log("Error getting tour: " + error);
+                console.log("Error getting caption: " + error);
             } else {
-           var captionObj = JSON.parse(body);
-           console.log("description is:" + captionObj.description);
-           sendMessage(senderId, {text: captionObj.description});
-            }
-        });
+                var captionObj = JSON.parse(body);
+             console.log("description is:" + captionObj.description);
+            sendMessage(senderId, {text: captionObj.description});
+               }
+    });
+ }
+  }
 
-}
-});
-}
 
 // sends message to user
 function sendMessage(recipientId, message) {
