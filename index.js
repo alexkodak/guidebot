@@ -99,7 +99,7 @@ function sendMessage(recipientId, message) {
         if (error) {
             console.log("Error sending message: " + response.error);
         } else {
-            console.log("message ok");
+            console.log("message sent to user" + message);
       }
     });
  }
@@ -116,7 +116,7 @@ function processMessage(event) {
         // You may get a text or attachment but not both
         if (message.text) {
             var formattedMsg = message.text.toLowerCase().trim();
-            checkTourValue();            
+            checkTourValue(senderId,formattedMsg);            
 }
 	
 	else if (message.attachments) {
@@ -124,6 +124,7 @@ function processMessage(event) {
         }
     }
 }
+
 
 
 // We check if the user already started a tour
@@ -140,6 +141,7 @@ function checkTourValue(senderId, ReturnTourValue) {
             } else {
                 var userObj = JSON.parse(body);
                 console.log("existing tour found: " + userObj.tour);
+                ReturnTourValue(response, body);
               }
     });
  }
