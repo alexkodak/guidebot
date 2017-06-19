@@ -95,32 +95,12 @@ function sendMessage(recipientId, message) {
             recipient: {id: recipientId},
             message: message
         }
-    }, function (error, response, body) {
+    }, function (error, response) {
         if (error) {
             console.log("Error sending message: " + response.error);
         } else {
             console.log("message sent to user" + JSON.stringify(message));
       }
-    });
- }
-
-
-// We check if the user already started a tour
-function checkTourValue(senderId) {
-   request({
-            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
-            qs: {
-                fields: "tour"
-            },
-            method: "GET"
-        }, function (error, response, body) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } else {
-                var userObj = JSON.parse(body);
-                console.log("existing tour found: " + userObj.tour);
-                ReturnTourValue(response, body);
-              }
     });
  }
 
@@ -135,8 +115,7 @@ function processMessage(event, checkTourValue) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-            var formattedMsg = message.text.toLowerCase().trim();
-            checkTourValue(senderId,formattedMsg);            
+           checkTourValue(senderId, event);            
 }
 	
 	else if (message.attachments) {
@@ -147,11 +126,28 @@ function processMessage(event, checkTourValue) {
 
 
 
-
+// We check if the user already started a tour
+function checkTourValue(senderId, ReturnTourValue, event) {
+   request({
+            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+            qs: {
+                fields: "tour"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+                var userObj = JSON.parse(body);
+                console.log("existing tour found: " + userObj.tour);
+                ReturnTourValue(body, event);
+              }
+    });
+ }
 
 
 // then we select the correct route based on the stored value
-function ReturnTourValue(error, response, body, res, event) {
+function ReturnTourValue(body, event) {
     var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
 
