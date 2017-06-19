@@ -115,7 +115,8 @@ function processMessage(event) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-           checkTourValue(senderId, message, event);            
+            var formattedMsg = event.message.text.toLowerCase().trim();
+           checkTourValue(senderId, formattedMsg, event);            
 }
 	
 	else if (message.attachments) {
@@ -127,7 +128,7 @@ function processMessage(event) {
 
 
 // We check if the user already started a tour
-function checkTourValue(senderId, event, message) {
+function checkTourValue(senderId, event, formattedMsg) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
@@ -138,22 +139,22 @@ function checkTourValue(senderId, event, message) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                // var userObj = JSON.parse(body);
-                console.log("existing tour found: " + body);
-                ReturnTourValue(senderId, body, event, message);
+                var userObj = JSON.parse(body);
+                console.log("existing tour found: " + userObj.tour);
+                ReturnTourValue(senderId, userObj, event, formattedMsg);
               }
     });
  }
 
 
 // then we select the correct route based on the stored value
-function ReturnTourValue(senderId, body, event, message) {
+function ReturnTourValue(senderId, userObj, event, formattedMsg) {
    // var senderId = event.sender.id;
-     var formattedMsg = event.message.text.toLowerCase().trim();
+     
     
-                if(body.hasOwnProperty('tour')) {           
-                console.log("JSON Parsed, tour is " + body.tour);          
-                getTour(senderId, formattedMsg, body, event); 
+                if(userObj.hasOwnProperty('tour')) {           
+                console.log("JSON Parsed, tour is " + userObj.tour);          
+                getTour(senderId, formattedMsg, userObj, event); 
                               } 
                 else {
                     findTour(senderId, formattedMsg);
