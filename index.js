@@ -115,7 +115,7 @@ function processMessage(event) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-            var formattedMsg = event.message.text.toLowerCase().trim();
+           var formattedMsg = event.message.text.toLowerCase().trim();
            checkTourValue(senderId, formattedMsg, event);            
 }
 	
@@ -158,7 +158,7 @@ function ReturnTourValue(senderId, userObj, event, formattedMsg) {
                               } 
                 else {
                     findTour(senderId, formattedMsg);
-                    sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
+                    sendMessage(senderId, {text: "Okay, we are looking for " + userObj.tour});
            } 
 
 
@@ -170,7 +170,7 @@ function findTour(userId, formattedMsg) {
            
             console.log("connection ok, looking for tour" + body);
           
-            var inputObj = JSON.parse(body);
+            var inputObj = body;
          
             console.log("tour is:" + inputObj.tour);
             console.log("language is:" + inputObj.language);
