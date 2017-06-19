@@ -138,9 +138,8 @@ function checkTourValue(senderId, event) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-             //   var userObj = JSON.parse(body);
-            //     console.log("existing tour found: " + userObj.tour);
-            console.log("existing tour found: " + body);
+                var userObj = JSON.parse(body);
+                console.log("existing tour found: " + userObj.tour);
                 ReturnTourValue(body, event);
               }
     });
@@ -148,10 +147,10 @@ function checkTourValue(senderId, event) {
 
 
 // then we select the correct route based on the stored value
-function ReturnTourValue(body, event) {
+function ReturnTourValue(userObj, event) {
     var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
-    var userObj = JSON.parse(body);
+    
                 if(userObj.hasOwnProperty('tour')) {           
                 console.log("JSON Parsed, tour is " + userObj.tour);          
                 getTour(senderId, formattedMsg, userObj, event); 
