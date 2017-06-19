@@ -148,7 +148,7 @@ function checkTourValue(senderId, event) {
 
 // then we select the correct route based on the stored value
 function ReturnTourValue(senderId, body, event) {
-    var senderId = event.sender.id;
+   // var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
     
                 if(body.hasOwnProperty('tour')) {           
