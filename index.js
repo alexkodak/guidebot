@@ -127,7 +127,7 @@ function processMessage(event) {
 
 
 // We check if the user already started a tour
-function checkTourValue(senderId, ReturnTourValue, event) {
+function checkTourValue(senderId, event) {
    request({
             url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
             qs: {
