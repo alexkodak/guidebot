@@ -140,7 +140,7 @@ function checkTourValue(senderId, event) {
             } else {
                 var userObj = JSON.parse(body);
                 console.log("existing tour found: " + userObj.tour);
-                ReturnTourValue(body, event);
+                ReturnTourValue(userObj, event);
               }
     });
  }
