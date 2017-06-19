@@ -150,10 +150,10 @@ function checkTourValue(senderId, event) {
 function ReturnTourValue(senderId, body, event) {
     var senderId = event.sender.id;
     var formattedMsg = event.message.text.toLowerCase().trim();
-    var userObj = JSON.parse(body);
-                if(userObj.hasOwnProperty('tour')) {           
-                console.log("JSON Parsed, tour is " + userObj.tour);          
-                getTour(senderId, formattedMsg, userObj, event); 
+    
+                if(body.hasOwnProperty('tour')) {           
+                console.log("JSON Parsed, tour is " + body.tour);          
+                getTour(senderId, formattedMsg, body, event); 
                               } 
                 else {
                     findTour(senderId, formattedMsg);
