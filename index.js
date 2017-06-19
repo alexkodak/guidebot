@@ -105,7 +105,7 @@ function sendMessage(recipientId, message) {
  }
 
  // Process messages received from users
-function processMessage(event, checkTourValue) {
+function processMessage(event) {
     if (!event.message.is_echo) {
         var message = event.message;
         var senderId = event.sender.id;
