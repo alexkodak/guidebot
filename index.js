@@ -85,6 +85,25 @@ function processPostback(event) {
     }
 }
 
+// sends message to user
+function sendMessage(recipientId, message) {
+    request({
+        url: "https://graph.facebook.com/v2.6/me/messages",
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: "POST",
+        json: {
+            recipient: {id: recipientId},
+            message: message
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log("Error sending message: " + response.error);
+        } else {
+            console.log("message ok");
+      }
+    });
+ }
+
 // We check if the user already started a tour
 function checkTourValue(senderId, ReturnTourValue) {
    request({
@@ -249,26 +268,5 @@ function findCaption(error, response) {
             sendMessage(senderId, {text: captionObj.description});
                }
      });
- }
- }
-
-
-// sends message to user
-function sendMessage(recipientId, message) {
-    request({
-        url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: "POST",
-        json: {
-            recipient: {id: recipientId},
-            message: message
-        }
-    }, function (error, response, body) {
-        if (error) {
-            console.log("Error sending message: " + response.error);
-        } else {
-            console.log("message ok");
-      }
-    });
  }
  }
