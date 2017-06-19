@@ -7,6 +7,7 @@ var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z3
 var Input = require("./models/input");
 
 var app = express();
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
@@ -84,6 +85,40 @@ function processPostback(event) {
     }
 }
 
+// We check if the user already started a tour
+function checkTourValue(senderId, ReturnTourValue) {
+   request({
+            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+            qs: {
+                fields: "tour"
+            },
+            method: "GET"
+        }, function (error, response, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+                var userObj = JSON.parse(body);
+                console.log("existing tour found: " + userObj.tour);
+              }
+    });
+ }
+
+
+// then we select the correct route based on the stored value
+function ReturnTourValue(error, response, body, res, event) {
+    var senderId = event.sender.id;
+    var formattedMsg = event.message.text.toLowerCase().trim();
+
+                if(body.hasOwnProperty('tour')) {   
+                console.log("user checked, content is " + body);
+                var userObj = JSON.parse(body);
+                console.log("JSON Parsed, tour is " + userObj.tour);          
+                getTour(senderId, formattedMsg); 
+                              } 
+                else {
+                    findTour(senderId, formattedMsg);
+                    sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
+           } 
 
 function processMessage(event) {
     if (!event.message.is_echo) {
@@ -96,22 +131,8 @@ function processMessage(event) {
         // You may get a text or attachment but not both
         if (message.text) {
             var formattedMsg = message.text.toLowerCase().trim();
-            
-            
-// If we receive a text message, check to see if we already now this user
-    request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body, res) {
-                if(body.hasOwnProperty('tour')) {   
-                console.log("user checked, content is " + body);
-                var userObj = JSON.parse(body);
-                console.log("JSON Parsed, tour is " + userObj.tour);          
-                getTour(senderId, formattedMsg); 
-                              } 
-                else {
-                    findTour(senderId, formattedMsg);
-                    sendMessage(senderId, {text: "Okay, we are looking for " + formattedMsg});
-           } 
-        });
-    }
+            checkTourValue();            
+}
 	
 	else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
@@ -209,12 +230,8 @@ function getTour(senderId, findCaption) {
 
 
 
-function findCaption(error, getTour) {
-    
-    var senderId = event.sender.id;
-    var message = event.message;
-    var formattedMsg = message.text.toLowerCase().trim();
-            if (error) {
+function findCaption(error, response) {
+                  if (error) {
                 console.log("Error getting caption: " + error);
             } else {
             request({
@@ -231,9 +248,9 @@ function findCaption(error, getTour) {
              console.log("description is:" + captionObj.description);
             sendMessage(senderId, {text: captionObj.description});
                }
-    });
+     });
  }
-  }
+ }
 
 
 // sends message to user
@@ -253,4 +270,5 @@ function sendMessage(recipientId, message) {
             console.log("message ok");
       }
     });
+ }
  }
