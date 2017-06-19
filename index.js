@@ -104,8 +104,8 @@ function sendMessage(recipientId, message) {
     });
  }
 
-
-function processMessage(event) {
+ // Process messages received from users
+function processMessage(event, checkTourValue) {
     if (!event.message.is_echo) {
         var message = event.message;
         var senderId = event.sender.id;
