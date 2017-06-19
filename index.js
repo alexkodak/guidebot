@@ -78,7 +78,7 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-        getTour(senderId, event.message);
+       // getTour(senderId, event);
                         
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -115,7 +115,7 @@ function processMessage(event) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-           checkTourValue(senderId, event);            
+           checkTourValue(senderId, message);            
 }
 	
 	else if (message.attachments) {
