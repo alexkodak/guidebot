@@ -3,7 +3,7 @@ var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
 
-var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
+var db = mongoose.connect(process.env.MONGODB_URI);
 var Input = require("./models/input");
 
 var app = express();
@@ -216,8 +216,8 @@ function findCaption(senderId, tour, caption) {
             } else {
            var captionObj = JSON.parse(body);
            console.log("description is:" + captionObj.description);
-           sendMessage(senderId, {text: "" + captionObj.description});
-            }
+           sendMessage(senderId, {text: captionObj.description});
+                       }
       });
  }
 
