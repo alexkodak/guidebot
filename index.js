@@ -106,7 +106,16 @@ function processMessage(event) {
                 
                               } 
                 else {
-                    checkTOurValue(senderId, formattedMsg);
+                     request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, body) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+                console.log("existing tour found1: " + JSON.stringify(body));
+                var userObj = JSON.parse(body);
+                console.log("existing tour found2: " + userObj.tour);
+                findCaption(senderId, formattedMsg, userObj);
+              }
+    });
                   } 
      }
     else if (message.attachments) {
@@ -116,7 +125,7 @@ function processMessage(event) {
     }
 
 
-// We check if the user already started a tour
+/* We check if the user already started a tour
 function checkTourValue(senderId, formattedMsg) {
    request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, body) {
             if (error) {
@@ -129,7 +138,7 @@ function checkTourValue(senderId, formattedMsg) {
               }
     });
  }
-
+*/
 
 // look for tour details
 
