@@ -5,7 +5,7 @@ var InputSchema = mongoose.Schema({
 	tour: Number,
 	language: String,
 	tour_description: String,
-	caption: Number,
+	caption: String,
 	room: Number,
 	caption_description: String
 });
