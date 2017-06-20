@@ -137,12 +137,12 @@ function checkTourValue(senderId, event, formattedMsg) {
            console.log("checking if we have a tour for user: " + senderId);
            console.log("existing tour found: " + JSON.stringify(userObj));
                if(JSON.stringify(userObj) === '""') {
-                    
-                getTour(senderId, formattedMsg, userObj, event); 
-                              } 
-                else {
                     findTour(senderId, formattedMsg);
                     sendMessage(senderId, {text: "Okay, we are looking for " + userObj.tour});
+                   } 
+                else {
+                    
+                     getTour(senderId, formattedMsg, userObj, event); 
               }
               }
     });
