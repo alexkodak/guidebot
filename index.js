@@ -111,7 +111,7 @@ function processMessage(event) {
         qs: {
                 fields: "tour"
             },
-       //     method: "GET"
+         method: "GET"
     }, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
