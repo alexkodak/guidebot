@@ -169,7 +169,7 @@ function findTour(userId, formattedMsg) {
                     user_id: userId,
                     tour: inputObj.tour,
                     language: inputObj.language,
-                    tour_description: inputObj.description,
+                    tour_description: inputObj.description
                 };
                 var options = {upsert: true};
                 console.log("valid tour requested");
@@ -227,13 +227,13 @@ function getTour(senderId,event, userObj) {
                 console.log("Error getting tour: " + error);
             } else {
                 console.log("connection ok, registered tour is " + userObj.tour);
-                findCaption(error, body, event, userObj)
+                findCaption(error, body, event, userObj, senderId);
               }
     });
  }
  
  
-function findCaption(error, event, userObj) {
+function findCaption(error, event, userObj, senderId) {
     var formattedMsg = event.message.text.toLowerCase().trim();
                       if (error) {
                 console.log("Error getting caption: " + error);
@@ -255,4 +255,4 @@ function findCaption(error, event, userObj) {
      });
  }
  }
- }
+ 
