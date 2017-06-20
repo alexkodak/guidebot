@@ -107,34 +107,7 @@ function processMessage(event) {
                 
                               } 
                 else {
-                    var options = {
-                    host: 'https://blooming-wave-81088.herokuapp.com',
-                     path: '/inputs',
-                    method: 'GET'
-                        };
-
-                var req = http.request(options, function(res) {
-                console.log('STATUS: ' + res.statusCode);
-                console.log('HEADERS: ' + JSON.stringify(res.headers));
-                res.setEncoding('utf8');
-                res.on('data', function (chunk) {
-                console.log('BODY: ' + chunk);
-                 });
-                });
-
-            req.on('error', function(e) {
-            console.log('problem with request: ' + e.message);
-            });
-
-        // write data to request body
-    req.write('data\n');
-    req.write('data\n');
-    req.end();
-    var userObj = (data);
-    findCaption(senderId, formattedMsg, userObj);          
-                    
-                }
-          /*    request({
+                    http.request({
         url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
         qs: {
                 fields: "tour"
@@ -148,13 +121,16 @@ function processMessage(event) {
                 
               console.log("existing tour found: " + body);
               
-              var userObj = JSON.parse(body);
+              var userObj = (body);
               
               findCaption(senderId, formattedMsg, userObj);
               }
     });
-                  } */
-     } 
+                  } 
+     }       
+                    
+                
+           
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
