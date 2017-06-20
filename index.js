@@ -110,9 +110,9 @@ function processMessage(event) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                var inputBody = JSON.stringify(body);
-                console.log("existing tour found1: " + inputBody);
-                var userObj = body;
+                // var inputBody = JSON.stringify(body);
+                // console.log("existing tour found1: " + inputBody);
+                var userObj = JSON.parse(body);
                 console.log("existing tour found2: " + userObj.tour);
                 findCaption(senderId, formattedMsg, userObj);
               }
