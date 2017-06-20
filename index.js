@@ -2,7 +2,6 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var http = require ("http")
 
 var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
 var Input = require("./models/input");
@@ -107,7 +106,7 @@ function processMessage(event) {
                 
                               } 
                 else {
-                    http.get({
+                    request({
         url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
         qs: {
                 fields: "tour"
