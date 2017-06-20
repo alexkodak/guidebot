@@ -107,7 +107,7 @@ function processMessage(event) {
                               } 
                 else {
                
-                var formattedCaption = JSON.stringify(formattedMsg);
+                var formattedCaption = formattedMsg;
                 var query = {user_id: senderId};
                 var update = {
                     caption: formattedCaption
@@ -123,7 +123,7 @@ function processMessage(event) {
                   console.log("caption from Input is: " + Input.caption);
                   var tour = Input.tour;
                   var caption = Input.caption;
-                  findCaption(senderId, tour, caption);
+                  findCaption(senderId, tour, caption); // need to add callback
                         
                     }
                  }); 
