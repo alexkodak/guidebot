@@ -129,24 +129,13 @@ function processMessage(event) {
 
 // We check if the user already started a tour
 function checkTourValue(senderId, event, formattedMsg) {
-   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error,response) {
+   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                console.log("existing tour found1: " + JSON.stringify(response));
-                var userObj = JSON.parse(response);
-                console.log("existing tour found2: " + userObj.tour);
-                ReturnTourValue(senderId, userObj, event, formattedMsg);
-              }
-    });
- }
-
-
-// then we select the correct route based on the stored value
-function ReturnTourValue(senderId, userObj, event, formattedMsg) {
-   // var senderId = event.sender.id;
-     
-    
+                console.log("existing tour found1: " + JSON.stringify(body));
+                var userObj = body;
+               
                 if(userObj.hasOwnProperty('tour')) {           
                 console.log("JSON Parsed, tour is " + userObj.tour);          
                 getTour(senderId, formattedMsg, userObj, event); 
@@ -154,7 +143,10 @@ function ReturnTourValue(senderId, userObj, event, formattedMsg) {
                 else {
                     findTour(senderId, formattedMsg);
                     sendMessage(senderId, {text: "Okay, we are looking for " + userObj.tour});
-           } 
+              }
+              }
+    });
+ }
 
 
 // look for tour details
