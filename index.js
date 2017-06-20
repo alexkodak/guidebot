@@ -129,12 +129,12 @@ function processMessage(event) {
 
 // We check if the user already started a tour
 function checkTourValue(senderId, event, formattedMsg) {
-   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, body) {
+   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error,response) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                console.log("existing tour found1: " + JSON.stringify(body));
-                var userObj = JSON.parse(body);
+                console.log("existing tour found1: " + JSON.stringify(response));
+                var userObj = JSON.parse(response);
                 console.log("existing tour found2: " + userObj.tour);
                 ReturnTourValue(senderId, userObj, event, formattedMsg);
               }
