@@ -113,13 +113,17 @@ function processMessage(event) {
             },
             method: "GET"
     }, function (error, body) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } else {
-                var userObj = JSON.parse(body);
-                console.log("existing tour found2: " + userObj.tour);
-                findCaption(senderId, formattedMsg, userObj);
+            if (!error && response.statusCode == 200) {
+                
+              console.log("existing tour found: " + body);
+              
+              var userObj = JSON.parse(body);
+              
+              findCaption(senderId, formattedMsg, userObj);
               }
+            else (error) {
+                console.log("Error getting tour: " + error);
+            }
     });
                   } 
      }
