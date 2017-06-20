@@ -122,8 +122,10 @@ function processMessage(event) {
           //    console.log("reqBody is: " + reqBody);
            //   userObj = JSON.parse(reqBody);
              
-              userObj = body;
+              userObj = JSON.stringify(body);
+              
               console.log("userObj is: " + userObj);
+               console.log("userObj.body is: " + userObj.body);
               findCaption(senderId, formattedMsg, userObj);
               }
     });
