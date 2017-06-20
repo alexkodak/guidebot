@@ -210,7 +210,7 @@ function findTour(userId, formattedMsg) {
 // look for caption details
 
 function findCaption(userId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
