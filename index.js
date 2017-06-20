@@ -2,6 +2,7 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var http = require ("http")
 
 var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z39nqLBg@ds111461.mlab.com:11461/guidebot');
 var Input = require("./models/input");
@@ -106,10 +107,36 @@ function processMessage(event) {
                 
                               } 
                 else {
-                     request({
-       // url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
-       url: "https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg,
-         qs: {
+                    var options = {
+                    host: 'https://blooming-wave-81088.herokuapp.com.com',
+                     path: '/inputs',
+                    method: 'GET'
+                        };
+
+                var req = http.request(options, function(res) {
+                console.log('STATUS: ' + res.statusCode);
+                console.log('HEADERS: ' + JSON.stringify(res.headers));
+                res.setEncoding('utf8');
+                res.on('data', function (chunk) {
+                console.log('BODY: ' + chunk);
+                 });
+                });
+
+            req.on('error', function(e) {
+            console.log('problem with request: ' + e.message);
+            });
+
+        // write data to request body
+    req.write('data\n');
+    req.write('data\n');
+    req.end();
+    var userObj = (data);
+    findCaption(senderId, formattedMsg, userObj);          
+                    
+                }
+          /*    request({
+        url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+        qs: {
                 fields: "tour"
             },
             method: "GET"
@@ -126,8 +153,8 @@ function processMessage(event) {
               findCaption(senderId, formattedMsg, userObj);
               }
     });
-                  } 
-     }
+                  } */
+     } 
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
