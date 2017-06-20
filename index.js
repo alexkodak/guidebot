@@ -106,6 +106,7 @@ function processMessage(event) {
                 
                               } 
                 else {
+                console.log("requested caption is: " + formattedMsg);    
                 var query = {user_id: senderId};
                 var update = {
                     caption: formattedMsg
