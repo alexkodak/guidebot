@@ -113,7 +113,10 @@ function processMessage(event) {
             },
             method: "GET"
     }, function (error, body) {
-            if (!error && response.statusCode == 200) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } 
+            else {
                 
               console.log("existing tour found: " + body);
               
@@ -121,9 +124,6 @@ function processMessage(event) {
               
               findCaption(senderId, formattedMsg, userObj);
               }
-            else (error) {
-                console.log("Error getting tour: " + error);
-            }
     });
                   } 
      }
