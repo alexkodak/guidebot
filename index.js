@@ -107,7 +107,8 @@ function processMessage(event) {
                               } 
                 else {
                      request({
-        url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+       // url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
+       url: "https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg,
          qs: {
                 fields: "tour"
             },
