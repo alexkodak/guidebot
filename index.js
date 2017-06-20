@@ -118,10 +118,11 @@ function processMessage(event) {
             } 
             else {
                 
-              console.log("existing tour found: " + body);
-              
-              var userObj = (body);
-              
+              var reqBody = request.body.toString();
+              console.log("reqBody is: " + reqBody);
+              userObj = JSON.parse(reqBody);
+              console.log("userObj is: " + userObj);
+                           
               findCaption(senderId, formattedMsg, userObj);
               }
     });
