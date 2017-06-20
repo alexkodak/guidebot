@@ -106,30 +106,25 @@ function processMessage(event) {
                 
                               } 
                 else {
-                    request({
-        url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
-        qs: {
-                fields: "tour"
-            },
-         method: "GET"
-    }, function (error, body) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } 
-            else {
+                var query = {user_id: senderId};
+                var update = {
+                    caption: formattedMsg
+                  };
+                var options = {upsert: true};
+                console.log("valid caption requested");
                 
-          //    var reqBody = request.body.toString();
-          //    console.log("reqBody is: " + reqBody);
-           //   userObj = JSON.parse(reqBody);
-             
-          //    userObj = JSON.stringify(body);
-              userObj = body;
-              console.log("userObj is: " + userObj);
-              console.log("userObj.tour is: " + userObj.tour);
-              findCaption(senderId, formattedMsg, userObj);
-              }
-    });
-                  } 
+                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                  console.log("Tour from Input is: " + Input.tour);
+                        
+                        
+                        //  findCaption(senderId, inputObj.tour);
+                        
+                    }
+                 }); 
+                } 
      }       
                     
                 
