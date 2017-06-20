@@ -108,7 +108,7 @@ function processMessage(event) {
                               } 
                 else {
                     var options = {
-                    host: 'https://blooming-wave-81088.herokuapp.com.com',
+                    host: 'https://blooming-wave-81088.herokuapp.com',
                      path: '/inputs',
                     method: 'GET'
                         };
