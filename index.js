@@ -7,7 +7,6 @@ var db = mongoose.connect(process.env.MONGODB_URI || 'mongodb://alexkodak:pcJ-z3
 var Input = require("./models/input");
 
 var app = express();
-
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 5000));
@@ -78,33 +77,13 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-       // getTour(senderId, event);
-                        
+                               
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
 }
 
-// sends message to user
-function sendMessage(recipientId, message) {
-    request({
-        url: "https://graph.facebook.com/v2.6/me/messages",
-        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
-        method: "POST",
-        json: {
-            recipient: {id: recipientId},
-            message: message
-        }
-    }, function (error, response) {
-        if (error) {
-            console.log("Error sending message: " + response.error);
-        } else {
-            console.log("message sent to user" + JSON.stringify(message));
-      }
-    });
- }
 
- // Process messages received from users
 function processMessage(event) {
     if (!event.message.is_echo) {
         var message = event.message;
@@ -115,35 +94,38 @@ function processMessage(event) {
 
         // You may get a text or attachment but not both
         if (message.text) {
-           var formattedMsg = event.message.text.toLowerCase().trim();
-           checkTourValue(senderId, formattedMsg, event);            
-}
-	
-	else if (message.attachments) {
+            var formattedMsg = message.text.toLowerCase().trim();
+            
+            
+// If we receive a text message, check to see if we already now this user
+   
+                if(formattedMsg.length === 8) {   
+                findTour(senderId, formattedMsg);
+                sendMessage(senderId, {text: "Okay, we are looking for tour: " + formattedMsg});
+                    
+                
+                              } 
+                else {
+                    checkTOurValue(senderId, formattedMsg);
+                  } 
+     }
+    else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
-}
-
+    }
 
 
 // We check if the user already started a tour
-function checkTourValue(senderId, event, formattedMsg) {
-   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, response, body) {
+function checkTourValue(senderId, formattedMsg) {
+   request("https://blooming-wave-81088.herokuapp.com/inputs/" + senderId, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-            var userObj = body;    
-           console.log("checking if we have a tour for user: " + senderId);
-           console.log("existing tour found: " + JSON.stringify(userObj));
-               if(JSON.stringify(userObj) === '""') {
-                    findTour(senderId, formattedMsg);
-                    sendMessage(senderId, {text: "Okay, we are looking for " + userObj.tour});
-                   } 
-                else {
-                    
-                     getTour(senderId, formattedMsg, userObj, event); 
-              }
+                console.log("existing tour found1: " + JSON.stringify(body));
+                var userObj = JSON.parse(body);
+                console.log("existing tour found2: " + userObj.tour);
+                findCaption(senderId, formattedMsg, userObj);
               }
     });
  }
@@ -155,7 +137,7 @@ function findTour(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
            
-            console.log("connection ok, looking for tour" + JSON.stringify(body));
+            console.log("connection ok, looking for tour" + body);
           
             var inputObj = JSON.parse(body);
          
@@ -198,7 +180,7 @@ function findTour(userId, formattedMsg) {
                                         }]
                                 }
                             }
-                        };
+                        }
                         sendMessage(userId, message);
                    
                     }
@@ -213,46 +195,38 @@ function findTour(userId, formattedMsg) {
     });
 }
 
-// get Tour ID from User input
 
-function getTour(senderId,event, userObj) {
-   request({
-            url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
-            qs: {
-                fields: "tour"
-            },
-            method: "GET"
-        }, function (error, response, body) {
+// look for caption details
+
+function findCaption(senderId, formattedMsg, userObj) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg, function (error, response, body, senderId) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-                console.log("connection ok, registered tour is " + userObj.tour);
-                findCaption(error, body, event, userObj, senderId);
-              }
+           var captionObj = JSON.parse(body);
+           console.log("description is:" + captionObj.description);
+           sendMessage(senderId, {text: captionObj.description});
+            }
+      });
+ }
+
+
+
+// sends message to user
+function sendMessage(recipientId, message) {
+    request({
+        url: "https://graph.facebook.com/v2.6/me/messages",
+        qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+        method: "POST",
+        json: {
+            recipient: {id: recipientId},
+            message: message
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log("Error sending message: " + response.error);
+        } else {
+            console.log("message ok");
+      }
     });
  }
- 
- 
-function findCaption(error, event, userObj, senderId) {
-    var formattedMsg = event.message.text.toLowerCase().trim();
-                      if (error) {
-                console.log("Error getting caption: " + error);
-            } else {
-            request({
-            url: "https://blooming-wave-81088.herokuapp.com/captions/" + userObj.tour + "/" + formattedMsg,
-            qs: {
-                fields: "tour"
-            },
-            method: "GET"
-        }, function (error, body) {
-            if (error) {
-                console.log("Error getting caption: " + error);
-            } else {
-                var captionObj = JSON.parse(body);
-             console.log("description is:" + captionObj.description);
-            sendMessage(senderId, {text: captionObj.description});
-               }
-     });
- }
- }
- 
