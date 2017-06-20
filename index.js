@@ -209,15 +209,14 @@ function findTour(userId, formattedMsg) {
 
 // look for caption details
 
-function findCaption(senderId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
+function findCaption(userId, tour, caption) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
            var captionObj = JSON.parse(body);
            console.log("description is:" + captionObj.description);
-           message = JSON.stringify(captionObj.description);
-                        sendMessage(senderId, message);
+           sendMessage(userId,{text: captionObj.description});
                        }
       });
  }
