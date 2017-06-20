@@ -118,11 +118,12 @@ function processMessage(event) {
             } 
             else {
                 
-              var reqBody = request.body.toString();
-              console.log("reqBody is: " + reqBody);
-              userObj = JSON.parse(reqBody);
+          //    var reqBody = request.body.toString();
+          //    console.log("reqBody is: " + reqBody);
+           //   userObj = JSON.parse(reqBody);
+             
+              userObj = body;
               console.log("userObj is: " + userObj);
-                           
               findCaption(senderId, formattedMsg, userObj);
               }
     });
