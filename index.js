@@ -133,7 +133,7 @@ function checkTourValue(senderId, event, formattedMsg) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-            var userObj = JSON.parse(body);    
+            var userObj = body;    
            console.log("existing tour found1: " + JSON.stringify(body));
                if(userObj === '{}') {
              //   console.log("JSON Parsed, tour is " + userObj.tour);          
