@@ -107,12 +107,12 @@ function processMessage(event) {
                 
                               } 
                 else {
-                    http.request({
+                    http.get({
         url: "https://blooming-wave-81088.herokuapp.com/inputs/" + senderId,
         qs: {
                 fields: "tour"
             },
-            method: "GET"
+       //     method: "GET"
     }, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
