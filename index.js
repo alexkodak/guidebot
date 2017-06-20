@@ -216,7 +216,7 @@ function findCaption(senderId, tour, caption) {
             } else {
            var captionObj = JSON.parse(body);
            console.log("description is:" + captionObj.description);
-           sendMessage(senderId, "description is:" + captionObj.description);
+           sendMessage(senderId, "description is:");
                        }
       });
  }
