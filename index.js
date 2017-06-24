@@ -108,7 +108,7 @@ function processMessage(event) {
                 else {
                
                 var formattedCaption = formattedMsg;
-                 console.log("formatted caption is: " + formattedCaption);
+                console.log("formatted caption is: " + formattedCaption);
                 var query = {user_id: senderId};
                 var update = {
                     caption: formattedCaption
@@ -116,26 +116,15 @@ function processMessage(event) {
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                Input.findOneAndUpdate(query, update, options, function (err, Input, next) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                    Input.find(query,options, function (err,Input){
-                        if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                        console.log("Tour from Input is: " + Input.tour);
-                        console.log("caption from Input is: " + Input.caption);
-                        var tour = Input.tour;
-                        var caption = Input.caption;
-                        findCaption(senderId, tour, caption); // need to add callback
-                    }
-                    }
-                            
-                                );
-                        
-                  
-                        
+                  console.log("Tour from Input is: " + Input.tour);
+                  console.log("caption from Input is: " + Input.caption);
+                  var tour = Input.tour;
+                  var caption = Input.caption;
+                  next(findCaption(senderId, tour, caption));                        
                     }
                  }); 
                 } 
