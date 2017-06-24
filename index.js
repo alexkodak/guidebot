@@ -120,11 +120,21 @@ function processMessage(event) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                  console.log("Tour from Input is: " + Input.tour);
-                  console.log("caption from Input is: " + Input.caption);
-                  var tour = Input.tour;
-                  var caption = Input.caption;
-                  findCaption(senderId, tour, caption); // need to add callback
+                    Input.findOne(query,options, function (err,Input){
+                        if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                        console.log("Tour from Input is: " + Input.tour);
+                        console.log("caption from Input is: " + Input.caption);
+                        var tour = Input.tour;
+                        var caption = Input.caption;
+                        findCaption(senderId, tour, caption); // need to add callback
+                    }
+                    }
+                            
+                                );
+                        
+                  
                         
                     }
                  }); 
@@ -219,7 +229,7 @@ function findCaption(userId, tour, caption) {
            sendMessage(userId,{text: captionObj.description});
                        }
       });
- }
+ };
 
 
 
