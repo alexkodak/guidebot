@@ -116,7 +116,7 @@ function processMessage(event) {
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input, findCaption) {
+                Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
