@@ -116,7 +116,7 @@ function processMessage(event) {
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input, next) {
+                Input.findOneAndUpdate(query, update, options, function (err, Input, findCaption) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -124,7 +124,7 @@ function processMessage(event) {
                   console.log("caption from Input is: " + Input.caption);
                   var tour = Input.tour;
                   var caption = Input.caption;
-                  next(findCaption(senderId, tour, caption));                        
+                  findCaption(senderId, tour, caption);                        
                     }
                  }); 
                 } 
