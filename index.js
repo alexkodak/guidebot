@@ -120,7 +120,7 @@ function processMessage(event) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                    Input.findOne(query,options, function (err,Input){
+                    Input.find(query,options, function (err,Input){
                         if (err) {
                         console.log("Database error: " + err);
                     } else {
