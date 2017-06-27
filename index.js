@@ -106,8 +106,27 @@ function processMessage(event) {
                 
                               } 
                 else {
-                updateCaption (senderId, formattedMsg);
-              
+               
+                var formattedCaption = formattedMsg;
+                console.log("formatted caption is: " + formattedCaption);
+                var query = {user_id: senderId};
+                var update = {
+                    caption: formattedCaption
+                  };
+                var options = {upsert: true};
+                console.log("valid caption requested");
+                
+                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                  console.log("Tour from Input is: " + Input.tour);
+                  console.log("caption from Input is: " + Input.caption);
+                  var tour = Input.tour;
+                  var caption = Input.caption;
+                  findCaption(senderId, tour, caption);                        
+                    }
+                 }); 
                 } 
      }       
                     
@@ -119,43 +138,8 @@ function processMessage(event) {
     }
     }
 
-function updateCaption(senderId, formattedMsg){
-var formattedCaption = formattedMsg;
-                console.log("formatted caption is: " + formattedCaption);
-                var query = {user_id: senderId};
-                var update = {
-                    caption: formattedCaption
-                  };
-                var options = {upsert: true};
-                console.log("valid caption requested");
-    
-    Input.findOneAndUpdate(query, update, options, function (err, Input) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                  console.log("Tour from Input is: " + Input.tour);
-                  console.log("caption from Input is: " + Input.caption);
-                  var tour = Input.tour
-                 var caption = Input.caption;
-                function findCaption(userId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } else {
-           var captionObj = JSON.parse(body);
-           console.log("description is:" + captionObj.description);
-           sendMessage(userId,{text: captionObj.description});
-                       }
-      });
- };
-                   
-                                   }        
-              });
-         
-  
-          }
-                  
-                  
+
+
 
 // look for tour details
 
@@ -222,7 +206,7 @@ function findTour(userId, formattedMsg) {
 }
 
 
-/* look for caption details
+// look for caption details
 
 function findCaption(userId, tour, caption) {
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
@@ -235,7 +219,7 @@ function findCaption(userId, tour, caption) {
                        }
       });
  };
-*/
+
 
 
 // sends message to user
