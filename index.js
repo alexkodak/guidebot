@@ -111,15 +111,13 @@ function processMessage(event) {
                 };
             }
                 } 
-     }       
-                     
-                
+        
            
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
-    
+      }
 
 
 // look for tour details
