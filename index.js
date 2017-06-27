@@ -203,14 +203,12 @@ function updateCaption (senderId, formattedMsg){
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                Input.findOneAndUpdate(query, update, options, function(err, input) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log(Input);
-                 // console.log("Tour updated: " + Input.tour);
-                  // console.log("caption updated: " + Input.caption);
-                  }
+                        console.log(input);
+                                   }
               });
           }
                
@@ -225,8 +223,7 @@ function findCaption(userId, senderId, Input) {
                     } else {
                   console.log("Last selected tour is: " + Input.tour);
                   console.log("Last selected caption is: " + Input.caption);
-                  }
-              });
+               
                 var tour = Input.tour;
                 var caption = Input.caption;
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
@@ -238,6 +235,8 @@ function findCaption(userId, senderId, Input) {
            sendMessage(userId,{text: captionObj.description});
                        }
       });
+         }
+              });
  };
 
 
