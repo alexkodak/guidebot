@@ -106,9 +106,9 @@ function processMessage(event) {
                 
                               } 
                 else {
-                updateCaption(formattedMsg, function(data){
-                findCaption(data);
-                });
+                updateCaption (senderId, formattedMsg), function(data){
+                findCaption(data, senderId);
+                };
               
                 } 
      }       
