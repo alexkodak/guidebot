@@ -124,7 +124,7 @@ function processMessage(event) {
                   console.log("caption from Input is: " + Input.caption);
                   var tour = Input.tour;
                   var caption = Input.caption;
-                  findCaption(senderId, tour, caption);                        
+                  update.end(findCaption(senderId, tour, caption));                        
                     }
                  }); 
                 } 
