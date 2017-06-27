@@ -88,9 +88,11 @@ function findCaption(userId, tour, caption) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-           var captionObj = JSON.parse(body);
-           console.log("description is:" + captionObj.description);
-           sendMessage(userId,{text: captionObj.description});
+                console.log("description is:" + JSON.stringify(body));
+          // var captionObj = JSON.parse(body);
+          // 
+      //     console.log("description is:" + captionObj.description);
+        //   sendMessage(userId,{text: captionObj.description});
                        }
       });
  };
