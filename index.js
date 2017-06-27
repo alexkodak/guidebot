@@ -106,9 +106,14 @@ function processMessage(event) {
                 
                               } 
                 else {
-                updateCaption(senderId, formattedMsg), function (input){
+                updateCaption(senderId, formattedMsg), function (err, input){
+                    if(err){
+                        console.log("Can't update caption");
+                    }
+                    else {
                 findCaption(senderId, input);
-                };
+            }
+                    };
             }
                 } 
         
@@ -202,8 +207,9 @@ function updateCaption (senderId, formattedMsg){
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                  console.log("Tour updated: " + Input.tour);
-                  console.log("caption updated: " + Input.caption);
+                        console.log(Input);
+                 // console.log("Tour updated: " + Input.tour);
+                  // console.log("caption updated: " + Input.caption);
                   }
               });
           }
