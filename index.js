@@ -119,9 +119,11 @@ function processMessage(event) {
                 
                               } 
                 else {
-               async.waterfall([updateCaption(senderId, formattedMsg), findCaption], () => {  
-                 console.log('done');
-                });
+          //     async.waterfall([updateCaption(senderId, formattedMsg), findCaption], () => {  
+          //       console.log('done');
+          //    });
+                updateCaption (senderId, formattedMsg);
+                           
                 
                 } 
      }       
@@ -205,7 +207,7 @@ function findTour(userId, formattedMsg) {
 // look for caption details
 
 function updateCaption (senderId, formattedMsg){
-var formattedCaption = formattedMsg;
+        var formattedCaption = formattedMsg;
                 console.log("formatted caption is: " + formattedCaption);
                 var query = {user_id: senderId};
                 var update = {
@@ -214,15 +216,15 @@ var formattedCaption = formattedMsg;
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+        Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
-                  var tour = Input.tour;
-                  var caption = Input.caption;
-                                   
+                 var tour = Input.tour;
+                 var caption = Input.caption;
+                 findCaption(senderId, tour, caption);                  
                     }
                  }); 
                  }
