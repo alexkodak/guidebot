@@ -106,27 +106,10 @@ function processMessage(event) {
                 
                               } 
                 else {
-               
-                var formattedCaption = formattedMsg;
-                console.log("formatted caption is: " + formattedCaption);
-                var query = {user_id: senderId};
-                var update = {
-                    caption: formattedCaption
-                  };
-                var options = {upsert: true};
-                console.log("valid caption requested");
-                
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                  console.log("Tour from Input is: " + Input.tour);
-                  console.log("caption from Input is: " + Input.caption);
-                  var tour = Input.tour;
-                  var caption = Input.caption;
-                  findCaption(senderId, tour, caption);                        
-                    }
-                 }); 
+               var tour = Input.tour;
+               var caption = Input.caption;
+               updateCaption (senderId, formattedMsg),
+               findCaption(tour, caption);
                 } 
      }       
                     
@@ -138,8 +121,28 @@ function processMessage(event) {
     }
     }
 
-
-
+function updateCaption(senderId, formattedMsg){
+var formattedCaption = formattedMsg;
+                console.log("formatted caption is: " + formattedCaption);
+                var query = {user_id: senderId};
+                var update = {
+                    caption: formattedCaption
+                  };
+                var options = {upsert: true};
+                console.log("valid caption requested");
+    
+    Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                  console.log("Tour from Input is: " + Input.tour);
+                  console.log("caption from Input is: " + Input.caption);
+                  
+                  }        
+              }); 
+          }
+                  
+                  
 
 // look for tour details
 
