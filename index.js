@@ -106,22 +106,20 @@ function processMessage(event) {
                 
                               } 
                 else {
-                updateCaption (senderId, formattedMsg), function(data){
-                findCaption(data, senderId);
-                };
+                updateCaption(senderId, formattedMsg),
+                findCaption(senderId, Input);
+                }
               
                 } 
      }       
-                    
+                     
                 
            
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
-    }
-
-
+    
 
 
 // look for tour details
