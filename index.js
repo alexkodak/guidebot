@@ -84,7 +84,7 @@ function processPostback(event) {
 }
 
 function findCaption(userId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
@@ -119,9 +119,9 @@ function processMessage(event) {
                               } 
                 else {
                 var updatedCaption = updateCaption (senderId, formattedMsg);
-                updateCaption (senderId, formattedMsg, findCaption);
+                updateCaption (senderId, formattedMsg);
                 var tour = Input.tour;
-                 var caption = Input.caption;
+                var caption = Input.caption;
                 findCaption(updatedCaption, tour, caption);
                 } 
      }       
