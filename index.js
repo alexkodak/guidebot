@@ -2,7 +2,6 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
-var async = require ("async");
 
 var db = mongoose.connect(process.env.MONGODB_URI);
 var Input = require("./models/input");
@@ -119,10 +118,8 @@ function processMessage(event) {
                 
                               } 
                 else {
-          //     async.waterfall([updateCaption(senderId, formattedMsg), findCaption], () => {  
-          //       console.log('done');
-          //    });
-                updateCaption (senderId, formattedMsg);
+     
+                updateCaption (senderId, formattedMsg, findCaption);
                            
                 
                 } 
