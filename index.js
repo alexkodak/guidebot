@@ -119,7 +119,7 @@ function processMessage(event) {
                 
                               } 
                 else {
-               async.waterfall([updateCaption(senderId, formattedMsg), findCaption(userID, caption, tour)], () => {  
+               async.waterfall([updateCaption(senderId, formattedMsg), findCaption], () => {  
                  console.log('done');
                 });
                 
@@ -221,7 +221,8 @@ var formattedCaption = formattedMsg;
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
                   var tour = Input.tour;
-                  var caption = Input.caption;                                   
+                  var caption = Input.caption;
+                                   
                     }
                  }); 
                  }
