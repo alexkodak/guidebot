@@ -120,7 +120,9 @@ function processMessage(event) {
                 else {
                 var updatedCaption = updateCaption (senderId, formattedMsg);
                 updateCaption (senderId, formattedMsg, findCaption);
-                findCaption(updatedCaption);
+                var tour = Input.tour;
+                 var caption = Input.caption;
+                findCaption(updatedCaption, tour, caption);
                 } 
      }       
                     
@@ -218,9 +220,9 @@ function updateCaption (senderId, formattedMsg){
                     } else {
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
-                 var tour = Input.tour;
-                 var caption = Input.caption;
-                 findCaption(senderId, tour, caption);                  
+             //    var tour = Input.tour;
+            //     var caption = Input.caption;
+            //     findCaption(senderId, tour, caption);                  
                     }
                  }); 
                  }
