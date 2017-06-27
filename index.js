@@ -63,7 +63,7 @@ function processPostback(event) {
                 fields: "first_name"
             },
             method: "GET"
-        }, function (error, response, body) {
+        }, function (error, body) {
             var greeting = "";
             if (error) {
                 console.log("Error getting user's name: " + error);
@@ -84,8 +84,6 @@ function processPostback(event) {
 }
 
 
-
-
 function processMessage(event) {
     if (!event.message.is_echo) {
         var message = event.message;
@@ -104,22 +102,17 @@ function processMessage(event) {
                 if(formattedMsg.length === 8) {   
                 findTour(senderId, formattedMsg);
                 sendMessage(senderId, {text: "Okay, we are looking for tour: " + formattedMsg});
-                    
-                
                               } 
                 else {
                 updateCaption(senderId, formattedMsg);
                  } 
-     }       
-                    
-                
+     }        
            
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
     }
-
 
 
 
