@@ -2,6 +2,7 @@ var express = require("express");
 var request = require("request");
 var bodyParser = require("body-parser");
 var mongoose = require("mongoose");
+var async = require ("async");
 
 var db = mongoose.connect(process.env.MONGODB_URI);
 var Input = require("./models/input");
@@ -83,6 +84,18 @@ function processPostback(event) {
     }
 }
 
+function findCaption(userId, tour, caption) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
+            if (error) {
+                console.log("Error getting tour: " + error);
+            } else {
+           var captionObj = JSON.parse(body);
+           console.log("description is:" + captionObj.description);
+           sendMessage(userId,{text: captionObj.description});
+                       }
+      });
+ };
+
 
 function processMessage(event) {
     if (!event.message.is_echo) {
@@ -106,27 +119,10 @@ function processMessage(event) {
                 
                               } 
                 else {
-               
-                var formattedCaption = formattedMsg;
-                console.log("formatted caption is: " + formattedCaption);
-                var query = {user_id: senderId};
-                var update = {
-                    caption: formattedCaption
-                  };
-                var options = {upsert: true};
-                console.log("valid caption requested");
+               async.waterfall([updateCaption, findCaption], () => {  
+                 console.log('done');
+                });
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                  console.log("Tour from Input is: " + Input.tour);
-                  console.log("caption from Input is: " + Input.caption);
-                  var tour = Input.tour;
-                  var caption = Input.caption;
-                  findCaption(senderId, tour, caption);                        
-                    }
-                 }); 
                 } 
      }       
                     
@@ -208,32 +204,28 @@ function findTour(userId, formattedMsg) {
 
 // look for caption details
 
-function findCaption(userId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
-            if (error) {
-                console.log("Error getting tour: " + error);
-            } else {
-           var captionObj = JSON.parse(body);
-           console.log("description is:" + captionObj.description);
-           message = {
-                            text: {
-                                type: "template",
-                                payload: {
-                                    template_type: "generic",
-                                    elements: [{
-                                            title: "Caption - " + caption,
-                                            text: captionObj.description,
-                                            }]
-                                }
-                            }
-                        }
-                        sendMessage(userId, message);
-                   
+function updateCaption (senderId, formattedMsg){
+var formattedCaption = formattedMsg;
+                console.log("formatted caption is: " + formattedCaption);
+                var query = {user_id: senderId};
+                var update = {
+                    caption: formattedCaption
+                  };
+                var options = {upsert: true};
+                console.log("valid caption requested");
+                
+                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                  console.log("Tour from Input is: " + Input.tour);
+                  console.log("caption from Input is: " + Input.caption);
+                  var tour = Input.tour;
+                  var caption = Input.caption;
+                                   
                     }
-      });
- };
-
-
+                 }); 
+                 }
 
 // sends message to user
 function sendMessage(recipientId, message) {
