@@ -84,14 +84,14 @@ function processPostback(event) {
     }
 }
 
-function findCaption(senderId, tour, caption) {
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body, senderId) {
+function findCaption(userId, tour, caption) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response, body, senderId) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
            var captionObj = JSON.parse(body);
            console.log("description is:" + captionObj.description);
-           sendMessage(senderId,{text: captionObj.description});
+           sendMessage(userId,{text: captionObj.description});
                        }
       });
  };
@@ -119,7 +119,7 @@ function processMessage(event) {
                 
                               } 
                 else {
-               async.waterfall([updateCaption(senderId, formattedMsg), findCaption(senderId, tour, caption)], () => {  
+               async.waterfall([updateCaption(senderId, formattedMsg), findCaption(userID, caption, tour)], () => {  
                  console.log('done');
                 });
                 
