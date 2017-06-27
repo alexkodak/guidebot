@@ -111,7 +111,7 @@ function processMessage(event) {
                         console.log("Can't update caption");
                     }
                     else {
-                        console.log("Captionwas updated to " + input);
+                        console.log("Caption was updated to " + input);
                         findCaption(senderId, input);
             }
                     };
@@ -211,7 +211,7 @@ function updateCaption (senderId, formattedMsg){
                         console.log(input);
                                    }
               });
-          }
+          };
                
 
 // look for caption details
