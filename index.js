@@ -119,7 +119,7 @@ function processMessage(event) {
                 
                               } 
                 else {
-               async.waterfall([updateCaption, findCaption], () => {  
+               async.waterfall([updateCaption(senderId, formattedMsg), findCaption], () => {  
                  console.log('done');
                 });
                 
