@@ -108,7 +108,7 @@ function processMessage(event) {
                 else {
                var tour = Input.tour;
                var caption = Input.caption;
-               updateCaption (senderId, formattedMsg),
+               updateCaption (senderId, formattedMsg, caption, tour),
                findCaption(tour, caption);
                 } 
      }       
@@ -121,7 +121,7 @@ function processMessage(event) {
     }
     }
 
-function updateCaption(senderId, formattedMsg){
+function updateCaption(senderId, formattedMsg, tour, caption){
 var formattedCaption = formattedMsg;
                 console.log("formatted caption is: " + formattedCaption);
                 var query = {user_id: senderId};
@@ -137,7 +137,8 @@ var formattedCaption = formattedMsg;
                     } else {
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
-                  
+                  var tour = Input.tour;
+                  var caption = Input.caption;
                   }        
               }); 
           }
