@@ -122,16 +122,11 @@ function processMessage(event) {
                     } else {
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
-                 
-                                        
-                    }
-                 }), function()
-                 {
                   var tour = Input.tour;
                   var caption = Input.caption;
-                  findCaption(tour, caption);
-                 };                         
-                        
+                  findCaption(senderId, tour, caption);                        
+                    }
+                 }); 
                 } 
      }       
                     
