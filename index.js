@@ -106,10 +106,10 @@ function processMessage(event) {
                 
                               } 
                 else {
-                updateCaption(senderId, formattedMsg),
-                findCaption(senderId, Input);
-                }
-              
+                updateCaption(senderId, formattedMsg), function (input){
+                findCaption(senderId, input);
+                };
+            }
                 } 
      }       
                      
