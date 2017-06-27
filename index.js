@@ -210,7 +210,7 @@ function updateCaption (senderId, formattedMsg){
                 var options = {upsert: true};
                 console.log("valid caption requested");
                 
-               Input.findOneAndUpdate(query, update, options, function (err, Input) {
+        Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
