@@ -126,7 +126,7 @@ function processMessage(event) {
 // look for tour details
 
 function findTour(userId, formattedMsg) {
-    request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
+    request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body) {
         if (!error && response.statusCode == 200) {
            
             console.log("connection ok, looking for tour" + body);
@@ -148,7 +148,7 @@ function findTour(userId, formattedMsg) {
                 var options = {upsert: true};
                 console.log("valid tour requested");
                 
-                Input.findOneAndUpdate(query, update, options, function (err, Input) {
+                Input.findOneAndUpdate(query, update, options, function (err) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
@@ -206,18 +206,15 @@ function updateCaption (senderId, formattedMsg){
                     } else {
                   console.log("Tour from Input is: " + Input.tour);
                   console.log("caption from Input is: " + Input.caption);
-          //    var tour = Input.tour;
-           //   var caption = Input.caption;
-              findCaption(senderId, Input);                  
+              var tour = Input.tour;
+              var caption = Input.caption;
+              findCaption(senderId, tour, caption);                  
                     }
                  }); 
                  }
 
 
-function findCaption(userId, Input) {
-    var tour = Input.tour;
-    var caption = Input.caption;
-        
+function findCaption(userId, tour, caption) {
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
