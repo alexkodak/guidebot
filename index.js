@@ -215,8 +215,21 @@ function findCaption(userId, tour, caption) {
             } else {
            var captionObj = JSON.parse(body);
            console.log("description is:" + captionObj.description);
-           sendMessage(userId,{text: captionObj.description});
-                       }
+           message = {
+                            text: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: [{
+                                            title: "Caption - " + caption,
+                                            text: captionObj.description,
+                                            }]
+                                }
+                            }
+                        }
+                        sendMessage(userId, message);
+                   
+                    }
       });
  };
 
