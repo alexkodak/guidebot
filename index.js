@@ -189,6 +189,31 @@ function findTour(userId, formattedMsg) {
     });
 }
 
+
+// capture the caption inputs in Mongo
+
+function updateCaption (senderId, formattedMsg, findCaption){
+
+ var formattedCaption = formattedMsg;
+                console.log("formatted caption is: " + formattedCaption);
+                var query = {user_id: senderId};
+                var update = {
+                    caption: formattedCaption
+                  };
+                var options = {upsert: true};
+                console.log("valid caption requested");
+
+                Input.findOneAndUpdate(query, update, options, function(err, results) {
+                    if (err) {
+                        console.log("Database error: " + err);
+                    } else {
+                        console.log("loading findCaption");
+                                   }
+              });
+              findCaption(senderId);
+          };
+
+
 // look for caption details
 
 function findCaption(userId, senderId) {
@@ -214,33 +239,6 @@ function findCaption(userId, senderId) {
          }
               });
  };
-
-
-
-// capture the caption inputs in Mongo
-
-function updateCaption (senderId, formattedMsg, findCaption){
-
- var formattedCaption = formattedMsg;
-                console.log("formatted caption is: " + formattedCaption);
-                var query = {user_id: senderId};
-                var update = {
-                    caption: formattedCaption
-                  };
-                var options = {upsert: true};
-                console.log("valid caption requested");
-
-                Input.findOneAndUpdate(query, update, options, function(err, results) {
-                    if (err) {
-                        console.log("Database error: " + err);
-                    } else {
-                        console.log("loading findCaption");
-                                   }
-                      findCaption(senderId);
-              });
-          };
-
-
 
 
 
