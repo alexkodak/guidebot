@@ -216,12 +216,15 @@ console.log("looking for the most recent caption for user" + senderId);
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                //      console.log("response from findOne is" + response);
-                console.log("Last selected tour is: " + Input.tour);
-               console.log("Last selected caption is: " + Input.caption);
+               console.log("response from findOne is" + response);
+               var captionRes = JSON.parse(response);
+               var tour = captionRes.tour;
+               var caption = captionRes.caption;
+              console.log("Last selected tour is: " + tour);
+             console.log("Last selected caption is: " + caption);
 
-                var tour = Input.tour;
-                var caption = Input.caption;
+                var tour = captionRes.tour;
+                var caption = captionRes.caption;
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
