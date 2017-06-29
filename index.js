@@ -106,12 +106,12 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg), function(err, input, findCaption){
+                updateCaption(senderId, formattedMsg), function(err){
                     if(err){
                         console.log("Can't update caption");
                     }
                     else {
-                        console.log("Caption was updated to " + input);
+                        console.log("Caption was updated");
                       }
                     };
             }
@@ -203,11 +203,11 @@ function updateCaption (senderId, formattedMsg){
                 var options = {upsert: true};
                 console.log("valid caption requested");
 
-                Input.findOneAndUpdate(query, update, options, function(err, input) {
+                Input.findOneAndUpdate(query, update, options, function(err, findCaption) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log(input);
+                        console.log("loading findCaption");
                                    }
               });
           };
