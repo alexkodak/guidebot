@@ -218,8 +218,8 @@ function updateCaption (senderId, formattedMsg, findCaption){
 // look for caption details
 
 function findCaption(userId, senderId) {
-     var query = {user_id: senderId};
-    Input.findOne(query, function (err, response) {
+
+    Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
