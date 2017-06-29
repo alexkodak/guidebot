@@ -223,8 +223,9 @@ function findCaption(userId, senderId) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                  console.log("Last selected tour is: " + Input.tour);
-                  console.log("Last selected caption is: " + Input.caption);
+                      console.log("response from findOne is" + response)
+                //  console.log("Last selected tour is: " + Input.tour);
+              //    console.log("Last selected caption is: " + Input.caption);
 
                 var tour = Input.tour;
                 var caption = Input.caption;
