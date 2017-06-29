@@ -111,7 +111,8 @@ function processMessage(event) {
                         console.log("Can't update caption");
                     }
                     else {
-                        console.log("Caption was updated");
+                        console.log("Caption was updated"),
+                        findCaption(senderId);
                       }
                     };
             }
