@@ -77,7 +77,7 @@ function processPostback(event) {
         });
     } else if (payload === "Correct") {
         sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
-                               
+
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
     }
@@ -95,30 +95,29 @@ function processMessage(event) {
         // You may get a text or attachment but not both
         if (message.text) {
             var formattedMsg = message.text.toLowerCase().trim();
-            
-            
+
+
 // If we receive a text message, check to see if we already now this user
-   
-                if(formattedMsg.length === 8) {   
+
+                if(formattedMsg.length === 8) {
                 findTour(senderId, formattedMsg);
                 sendMessage(senderId, {text: "Okay, we are looking for tour: " + formattedMsg});
-                    
-                
-                              } 
+
+
+                              }
                 else {
-                updateCaption(senderId, formattedMsg), function(err, input){
+                updateCaption(senderId, formattedMsg), function(err, input, findCaption){
                     if(err){
                         console.log("Can't update caption");
                     }
                     else {
                         console.log("Caption was updated to " + input);
-                        findCaption(senderId, input);
-            }
+                      }
                     };
             }
-                } 
-        
-           
+                }
+
+
     else if (message.attachments) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
@@ -131,15 +130,15 @@ function processMessage(event) {
 function findTour(userId, formattedMsg) {
     request("https://blooming-wave-81088.herokuapp.com/tours/" + formattedMsg, function (error, response, body, res) {
         if (!error && response.statusCode == 200) {
-           
+
             console.log("connection ok, looking for tour" + body);
-          
+
             var inputObj = JSON.parse(body);
-         
+
             console.log("tour is:" + inputObj.tour);
             console.log("language is:" + inputObj.language);
             console.log("description is:" + inputObj.description);
-            
+
             if(inputObj.hasOwnProperty('tour')) {
                 var query = {user_id: userId};
                 var update = {
@@ -150,7 +149,7 @@ function findTour(userId, formattedMsg) {
                 };
                 var options = {upsert: true};
                 console.log("valid tour requested");
-                
+
                 Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
@@ -177,7 +176,7 @@ function findTour(userId, formattedMsg) {
                             }
                         }
                         sendMessage(userId, message);
-                   
+
                     }
                 });
             } else {
@@ -203,7 +202,7 @@ function updateCaption (senderId, formattedMsg){
                   };
                 var options = {upsert: true};
                 console.log("valid caption requested");
-                
+
                 Input.findOneAndUpdate(query, update, options, function(err, input) {
                     if (err) {
                         console.log("Database error: " + err);
@@ -212,7 +211,7 @@ function updateCaption (senderId, formattedMsg){
                                    }
               });
           };
-               
+
 
 // look for caption details
 
@@ -224,7 +223,7 @@ function findCaption(userId, senderId, Input) {
                     } else {
                   console.log("Last selected tour is: " + Input.tour);
                   console.log("Last selected caption is: " + Input.caption);
-               
+
                 var tour = Input.tour;
                 var caption = Input.caption;
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
