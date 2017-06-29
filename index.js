@@ -194,7 +194,7 @@ function findTour(userId, formattedMsg) {
 
 // capture the caption inputs in Mongo
 
-function updateCaption (senderId, formattedMsg, findCaption){
+function updateCaption (senderId, formattedMsg, findCaption(senderId)){
 
  var formattedCaption = formattedMsg;
                 console.log("formatted caption is: " + formattedCaption);
@@ -209,7 +209,7 @@ function updateCaption (senderId, formattedMsg, findCaption){
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log("loading findCaption");
+                        console.log("loading findCaption for user" + senderId);
                                    }
               });
             };
