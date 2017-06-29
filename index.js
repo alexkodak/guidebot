@@ -191,7 +191,7 @@ function findTour(userId, formattedMsg) {
 
 // look for caption details
 
-var findCaption function findCaption(userId, senderId) {
+function findCaption(userId, senderId) {
      var query = {user_id: senderId};
     Input.findOne(query, function (err, response) {
                     if (err) {
