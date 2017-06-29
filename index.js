@@ -212,7 +212,7 @@ function updateCaption (senderId, formattedMsg){
 
                                    }
               });
-          };
+          }
 
 
 // look for caption details
