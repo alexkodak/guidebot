@@ -194,7 +194,7 @@ function findTour(userId, formattedMsg) {
 
 // capture the caption inputs in Mongo
 
-function updateCaption (senderId, formattedMsg, findCaption(senderId)){
+function updateCaption (senderId, formattedMsg, findCaption){
 
  var formattedCaption = formattedMsg;
                 console.log("formatted caption is: " + formattedCaption);
