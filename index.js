@@ -107,7 +107,6 @@ function processMessage(event) {
                               }
                 else {
                 updateCaption(senderId, formattedMsg),
-                console.log("the caption have been updated, now looking for the last value for user: " + senderId),
                 findCaption(senderId);
                       }
           }
@@ -211,13 +210,13 @@ function updateCaption (senderId, formattedMsg, findCaption){
 // look for caption details
 
 function findCaption(senderId, userId) {
-console.log("looking for the most recent caption for user" + senderId);
+console.log("looking for the most recent caption for user: " + senderId);
     Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
                console.log("response from findOne is" + response);
-               var captionRes = JSON.parse(response);
+               var captionRes = (response);
                var tour = captionRes.tour;
                var caption = captionRes.caption;
               console.log("Last selected tour is: " + tour);
