@@ -112,8 +112,9 @@ function processMessage(event) {
                     }
                     else {
                         console.log("Caption was updated");
+                        findCaption(senderId);
                           }
-                            findCaption(senderId);
+
                     };
             }
           }
