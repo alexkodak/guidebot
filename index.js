@@ -228,8 +228,10 @@ console.log("looking for the most recent caption for user: " + senderId);
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-    //          var captionRes = JSON.parse(response);
-           console.log("description is: " + JSON.stringify(response));
+              var captionRes = (response);
+                 console.log("description is: " + captionRes.description);
+                 console.log("response is: " + JSON.stringify(response));
+
       //     sendMessage(userId,{text: captionRes.description});
                        }
       });
