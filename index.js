@@ -224,13 +224,13 @@ console.log("looking for the most recent caption for user: " + senderId);
 
                 var tour = captionRes.tour;
                 var caption = captionRes.caption;
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, response) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, function (error, body) {
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-              var captionRes = (response);
+              var captionRes = (body);
                  console.log("description is: " + captionRes.description);
-                 console.log("response is: " + JSON.stringify(response));
+                 console.log("response is: " + JSON.stringify(body));
 
       //     sendMessage(userId,{text: captionRes.description});
                        }
