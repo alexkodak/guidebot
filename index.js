@@ -108,7 +108,6 @@ function processMessage(event) {
                 else {
                 updateCaption(senderId, formattedMsg),
                 console.log("the caption have been updated, now looking for the last value for user: " + senderId),
-                sendMessage(senderId, {text: "we are looking for this caption"}),
                 findCaption(senderId);
                       }
           }
@@ -217,9 +216,9 @@ console.log("looking for the most recent caption for user" + senderId);
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                      console.log("response from findOne is" + response);
-                //  console.log("Last selected tour is: " + Input.tour);
-              //    console.log("Last selected caption is: " + Input.caption);
+                //      console.log("response from findOne is" + response);
+                console.log("Last selected tour is: " + Input.tour);
+               console.log("Last selected caption is: " + Input.caption);
 
                 var tour = Input.tour;
                 var caption = Input.caption;
