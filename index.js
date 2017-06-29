@@ -203,11 +203,12 @@ function updateCaption (senderId, formattedMsg){
                 var options = {upsert: true};
                 console.log("valid caption requested");
 
-                Input.findOneAndUpdate(query, update, options, function(err, response, findCaption) {
+                Input.findOneAndUpdate(query, update, options, function(err, findCaption) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log("loading findCaption" + response);
+                        console.log("loading findCaption"),
+                        findCaption(senderId);
 
                                    }
               });
@@ -216,7 +217,7 @@ function updateCaption (senderId, formattedMsg){
 
 // look for caption details
 
-function findCaption(userId, senderId, response) {
+function findCaption(userId, senderId) {
      var query = {user_id: senderId};
     Input.findOne(query, function (err, response) {
                     if (err) {
