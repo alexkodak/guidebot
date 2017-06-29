@@ -106,7 +106,7 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg), function(err){
+                updateCaption(senderId, formattedMsg), function(err, findCaption){
                     if(err){
                         console.log("Can't update caption");
                     }
@@ -208,7 +208,6 @@ function updateCaption (senderId, formattedMsg){
                         console.log("Database error: " + err);
                     } else {
                         console.log("loading findCaption");
-                        findCaption(userId, senderId);
 
                                    }
               });
