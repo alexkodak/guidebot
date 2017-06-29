@@ -106,17 +106,16 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg), function(err){
+                updateCaption(senderId, formattedMsg), function(err, results){
                     if(err){
                         console.log("Can't update caption");
                     }
                     else {
                         console.log("Caption was updated");
-                        findCaption(senderId);
-                      }
+                          }
                     };
             }
-                }
+          }
 
 
     else if (message.attachments) {
@@ -193,7 +192,7 @@ function findTour(userId, formattedMsg) {
 
 // capture the caption inputs in Mongo
 
-function updateCaption (senderId, formattedMsg){
+function updateCaption (senderId, formattedMsg, findCaption){
 
  var formattedCaption = formattedMsg;
                 console.log("formatted caption is: " + formattedCaption);
@@ -204,15 +203,15 @@ function updateCaption (senderId, formattedMsg){
                 var options = {upsert: true};
                 console.log("valid caption requested");
 
-                Input.findOneAndUpdate(query, update, options, function(err) {
+                Input.findOneAndUpdate(query, update, options, function(err, results) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
                         console.log("loading findCaption");
-
                                    }
+                                   findCaption(senderId);
               });
-          }
+          };
 
 
 // look for caption details
