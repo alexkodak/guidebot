@@ -218,12 +218,12 @@ function updateCaption (senderId, formattedMsg, findCaption){
 // look for caption details
 
 function findCaption(userId, senderId) {
-
+console.log("looking for the most recent caption for user" + senderId);
     Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                      console.log("response from findOne is" + response)
+                      console.log("response from findOne is" + response);
                 //  console.log("Last selected tour is: " + Input.tour);
               //    console.log("Last selected caption is: " + Input.caption);
 
