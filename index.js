@@ -106,17 +106,9 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg), /* function(err, findCaption){
-                    if(err){
-                        console.log("Can't update caption");
-                    }
-                    else {
-                        console.log("Caption was updated"); */
-                        findCaption(senderId);
-                          }
-
-                //    };
-          //  }
+                updateCaption(senderId, formattedMsg),
+                findCaption(senderId);
+                      }
           }
 
 
@@ -209,7 +201,7 @@ function updateCaption (senderId, formattedMsg, findCaption){
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log("loading findCaption for user" + senderId);
+                        console.log("loading findCaption for user: " + senderId);
                                    }
               });
             };
@@ -217,9 +209,9 @@ function updateCaption (senderId, formattedMsg, findCaption){
 
 // look for caption details
 
-function findCaption(userId, senderId) {
-console.log("looking for the most recent caption for user" + senderId);
-    Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
+function findCaption(senderId, userId) {
+console.log("looking for the most recent caption for user" + userId);
+    Input.findOne({user_id: userId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
