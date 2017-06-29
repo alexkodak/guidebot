@@ -113,6 +113,7 @@ function processMessage(event) {
                     else {
                         console.log("Caption was updated");
                           }
+                            findCaption(senderId);
                     };
             }
           }
@@ -210,8 +211,7 @@ function updateCaption (senderId, formattedMsg, findCaption){
                         console.log("loading findCaption");
                                    }
               });
-              findCaption(senderId);
-          };
+            };
 
 
 // look for caption details
