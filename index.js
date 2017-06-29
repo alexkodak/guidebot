@@ -228,7 +228,7 @@ console.log("looking for the most recent caption for user: " + senderId);
             if (error) {
                 console.log("Error getting tour: " + error);
             } else {
-           var captionObj = JSON.parse(body);
+           var captionObj = (body);
            console.log("description is:" + captionObj.description);
            sendMessage(userId,{text: captionObj.description});
                        }
