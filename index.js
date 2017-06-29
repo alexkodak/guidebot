@@ -115,8 +115,8 @@ function processMessage(event) {
                         findCaption(senderId);
                           }
 
-                    };
-            }
+                //    };
+          //  }
           }
 
 
@@ -124,7 +124,7 @@ function processMessage(event) {
             sendMessage(senderId, {text: "Sorry, I don't understand your request."});
         }
     }
-  };
+  }
 
 
 // look for tour details
