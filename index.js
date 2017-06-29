@@ -107,6 +107,8 @@ function processMessage(event) {
                               }
                 else {
                 updateCaption(senderId, formattedMsg),
+                console.log("the caption have been updated, now looking for the last value for user: " + senderId),
+                sendMessage(senderId, {text: "we are looking for this caption"}),
                 findCaption(senderId);
                       }
           }
@@ -210,8 +212,8 @@ function updateCaption (senderId, formattedMsg, findCaption){
 // look for caption details
 
 function findCaption(senderId, userId) {
-console.log("looking for the most recent caption for user" + userId);
-    Input.findOne({user_id: userId}, { tour: 1, caption: 1 }, function (err, response) {
+console.log("looking for the most recent caption for user" + senderId);
+    Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
