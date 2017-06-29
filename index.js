@@ -106,20 +106,18 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg),
-                findCaption(err, senderId); 
-                /* {
+                updateCaption(senderId, formattedMsg), /* function(err, findCaption){
                     if(err){
                         console.log("Can't update caption");
                     }
                     else {
-                        console.log("Caption was updated");
-
+                        console.log("Caption was updated"); */
+                        findCaption(senderId);
                           }
-*/
+
                     };
             }
-          }
+          };
 
 
     else if (message.attachments) {
