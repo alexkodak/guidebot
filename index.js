@@ -106,13 +106,13 @@ function processMessage(event) {
 
                               }
                 else {
-                updateCaption(senderId, formattedMsg), function(err, findCaption){
+                updateCaption(senderId, formattedMsg), findCaption(err, senderId){
                     if(err){
                         console.log("Can't update caption");
                     }
                     else {
                         console.log("Caption was updated");
-                        findCaption(senderId);
+                      
                           }
 
                     };
