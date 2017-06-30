@@ -101,10 +101,7 @@ function processMessage(event) {
 
                 if(formattedMsg.length === 8) {
                 findTour(senderId, formattedMsg);
-                sendMessage(senderId, {text: "Okay, we are looking for tour: " + formattedMsg});
-
-
-                              }
+                    }
                 else {
                 updateCaption(senderId, formattedMsg),
                 findCaption(senderId);
@@ -229,7 +226,7 @@ console.log("looking for the most recent caption for user: " + senderId);
                 console.log("Error getting tour: " + error);
             } else {
             //  var captionRes = JSON.parse(body);
-                 console.log("description is: " + body);
+                 console.log("description is: " + JSON.parse(body));
                  console.log("response is: " + JSON.stringify(body));
 
       //     sendMessage(userId,{text: captionRes.description});
