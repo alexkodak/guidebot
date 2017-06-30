@@ -228,8 +228,8 @@ function resumeTour(senderId) {
                                   if (error) {
                         console.log("Database error: " + error);
                     }
-                    else if (results == null) {
-                      console.log("Database error: " + results);
+                    else if (response == null) {
+
                     sendMessage(senderId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
               else  {
