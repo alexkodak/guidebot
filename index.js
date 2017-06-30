@@ -227,8 +227,8 @@ console.log("looking for the most recent caption for user: " + senderId);
             } else {
              var captionRes = (response.body);
                console.log("response is: " + JSON.stringify(captionRes));
-               console.log("description is: " + captionRes.description);
-         sendMessage(userId,{text: captionRes.description});
+               console.log("description is: " + captionRes.tour);
+  //       sendMessage(userId,{text: captionRes.body});
                        }
       });
          }
