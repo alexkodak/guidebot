@@ -223,14 +223,13 @@ function findTour(userId, formattedMsg) {
 
 function resumeTour(senderId) {
                 Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response) {
-                  var foundTour = (response);
-                  console.log(foundTour);
+
 
                                   if (error) {
                         console.log("Database error: " + error);
                     }
 
-                    else if (foundTour.hasOwnProperty('tour')) {
+          /*          else if (foundTour.hasOwnProperty('tour')) {
                         message = {
                             attachment: {
                                 type: "template",
@@ -253,8 +252,10 @@ function resumeTour(senderId) {
                             }
                         }
                         sendMessage(senderId, message);
-                    }
+                    } */
                     else {
+                      var foundTour = (response);
+                      console.log(foundTour);
                   sendMessage(userId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
                 });
