@@ -228,8 +228,10 @@ function resumeTour(senderId) {
                                   if (error) {
                         console.log("Database error: " + error);
                     }
-
-          /*          else if (foundTour.hasOwnProperty('tour')) {
+                    else if (response.statusCode === 404) {
+                    sendMessage(senderId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
+                    }
+              else  {
                         message = {
                             attachment: {
                                 type: "template",
@@ -252,12 +254,8 @@ function resumeTour(senderId) {
                             }
                         }
                         sendMessage(senderId, message);
-                    } */
-                    else {
-                      var foundTour = (response);
-                      console.log(foundTour);
-                  sendMessage(senderId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
+
                 });
             }
 
