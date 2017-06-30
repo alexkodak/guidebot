@@ -172,16 +172,15 @@ function findTour(userId, formattedMsg) {
                     }
                 });
             }
-            else if (inputObj.tour.length === 0) {
-              console.log("requested tour does not exist");
-              sendMessage(userId, {text: "Looks like this tour does not exist, please try again"});
-            }
+
             else {
                 console.log(inputObj.Error);
                 sendMessage(userId, {text: inputObj.Error});
             }
         } else {
-            sendMessage(userId, {text: "Something went wrong. Try again."});
+                      console.log("requested tour does not exist");
+            sendMessage(userId, {text: "Looks like this tour does not exist, please try again"});
+
         }
     });
 }
