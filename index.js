@@ -100,6 +100,7 @@ function processMessage(event) {
 // If we receive a text message, check to see if we already now this user
                 if (formattedMsg === 'exit') {
                   sendMessage(senderId, {text: "Thank you for visiting us today."});
+                  process.exit("terminated by user");
                 }
                 else if (formattedMsg.length === 8) {
                 findTour(senderId, formattedMsg);
