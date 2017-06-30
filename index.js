@@ -223,11 +223,14 @@ function findTour(userId, formattedMsg) {
 
 function resumeTour(senderId) {
                 Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response) {
+                  var foundTour = (response);
+                  console.log(foundTour);
+
                                   if (error) {
                         console.log("Database error: " + error);
                     }
 
-                    else if (body.hasOwnProperty('tour')) {
+                    else if (foundTour.hasOwnProperty('tour')) {
                         message = {
                             attachment: {
                                 type: "template",
