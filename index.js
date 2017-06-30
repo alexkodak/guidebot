@@ -74,7 +74,7 @@ function processPostback(event) {
             }
             var message = greeting + "I'll be your guide for today.";
             sendMessage(senderId, {text: message});
-            tourTriage(userId);
+            tourTriage(senderId);
 
         });
     } else if (payload === "CorrectTour") {
@@ -127,7 +127,7 @@ function processMessage(event) {
   }
 
 
-function tourTriage(userId){
+function tourTriage(senderId){
   message = {
       attachment: {
           type: "template",
@@ -149,7 +149,7 @@ function tourTriage(userId){
           }
       }
   }
-  sendMessage(userId, message);
+  sendMessage(senderId, message);
 }
 
 // look for tour details
