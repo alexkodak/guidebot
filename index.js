@@ -76,7 +76,7 @@ function processPostback(event) {
             sendMessage(senderId, {text: message});
         });
     } else if (payload === "CorrectTour") {
-        sendMessage(senderId, {text: "Great, now tell me which caption you want to know about."});
+        sendMessage(senderId, {text: "Great, From now just type the reference of the caption you want to know about. Type 'exit' to leave"});
 
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -144,7 +144,8 @@ function findTour(userId, formattedMsg) {
                 Input.findOneAndUpdate(query, update, options, function (err, Input) {
                     if (err) {
                         console.log("Database error: " + err);
-                    } else {
+                    }
+                    else {
                         message = {
                             attachment: {
                                 type: "template",
@@ -170,7 +171,13 @@ function findTour(userId, formattedMsg) {
 
                     }
                 });
-            } else {
+            }
+            else if {
+              (inputObj.tour.length === 0)
+              console.log("requested tour does not exist");
+              sendMessage(userId, {text: "Looks like this tour does not exist, please try again"});
+            }
+            else {
                 console.log(inputObj.Error);
                 sendMessage(userId, {text: inputObj.Error});
             }
