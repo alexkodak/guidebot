@@ -134,15 +134,15 @@ function tourTriage(senderId){
           payload: {
               template_type: "generic",
               elements: [{
-                    title: "Menu",
-                      subtitle: "What can I do for you today?",
+                    title: "What can I do for you today?",
+                      subtitle: "",
                       buttons: [{
                               type: "postback",
-                              title: "New Tour",
+                              title: "Start a new tour",
                               payload: "startTour"
                           }, {
                               type: "postback",
-                              title: "Resume Tour",
+                              title: "Resume a tour",
                               payload: "resumeTour"
                           }]
                   }]
@@ -222,9 +222,12 @@ function findTour(userId, formattedMsg) {
 }
 
 function resumeTour(senderId) {
-                Input.findOne({user_id: senderId}, { tour: 1, description: 1, language: 1 }, function (error, response) {
+                Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response) {
                                   if (error) {
                         console.log("Database error: " + err);
+                    }
+                    else if (response.tour.length === 0) {
+                  sendMessage(userId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
                     else {
                         message = {
@@ -233,7 +236,7 @@ function resumeTour(senderId) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                            title: response.description + " - " + response.language,
+                                            title: response.tour_description + " - " + response.language,
                                             subtitle: "Is this the tour are looking for?",
                                             buttons: [{
                                                     type: "postback",
