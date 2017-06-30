@@ -227,7 +227,7 @@ function resumeTour(senderId) {
                         console.log("Database error: " + error);
                     }
 
-                    else if (!error && response.statusCode == 200) {
+                    else if (response.tour.length === 8) {
                         message = {
                             attachment: {
                                 type: "template",
