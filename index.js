@@ -227,7 +227,7 @@ function resumeTour(senderId) {
                         console.log("Database error: " + error);
                     }
 
-                    else if (!response.isNull) {
+                    else if (!response.isNull(Input)) {
                         message = {
                             attachment: {
                                 type: "template",
