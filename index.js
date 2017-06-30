@@ -300,12 +300,12 @@ console.log("looking for the most recent caption for user: " + senderId);
 
                 var tour = captionRes.tour;
                 var caption = captionRes.caption;
-    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, { description: 1 }, function (error, response) {
+    request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, { description: 1 }, function (error, response, results) {
             if (error) {
                 console.log("Error getting tour: " + error);
             }
             else if (results == null) {
-            sendMessage(senderId, {text: "Looks like this caption does not exist, please try again."});
+            sendMessage(senderId, {text: "Looks like " + caption + " does not exist, please try again."});
             }
 
             else {
