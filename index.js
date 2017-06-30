@@ -227,7 +227,7 @@ function resumeTour(senderId) {
                         console.log("Database error: " + error);
                     }
 
-                    else if (response.hasOwnProperty('tour')) {
+                    else if (body.hasOwnProperty('tour')) {
                         message = {
                             attachment: {
                                 type: "template",
