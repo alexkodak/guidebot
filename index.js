@@ -72,14 +72,22 @@ function processPostback(event) {
                 name = bodyObj.first_name;
                 greeting = "Hi " + name + ". ";
             }
-            var message = greeting + "I'll be your guide for today. Which place are you visiting today?";
+            var message = greeting + "I'll be your guide for today.";
             sendMessage(senderId, {text: message});
+            tourTriage(userId);
+
         });
     } else if (payload === "CorrectTour") {
         sendMessage(senderId, {text: "Great, From now just type the reference of the caption you want to know about, or type 'exit' to leave"});
 
-    } else if (payload === "Incorrect") {
+    } else if (payload === "IncorrectTour") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
+    } else if (payload === "resumeTour") {
+        sendMessage(senderId, {text: "thank you we are looking for your last tour."});
+        resumeTour(senderId);
+    } else if (payload === "startTour") {
+        sendMessage(senderId, {text: "Great! Which place are you visiting today?"});
+
     }
 }
 
@@ -100,7 +108,7 @@ function processMessage(event) {
 // If we receive a text message, check to see if we already now this user
                 if (formattedMsg === 'exit') {
                   sendMessage(senderId, {text: "Thank you for visiting us today."});
-                  process.exit("terminated by user");
+
                 }
                 else if (formattedMsg.length === 8) {
                 findTour(senderId, formattedMsg);
@@ -118,6 +126,31 @@ function processMessage(event) {
     }
   }
 
+
+function tourTriage(userId){
+  message = {
+      attachment: {
+          type: "template",
+          payload: {
+              template_type: "generic",
+              elements: [{
+                      title: Menu,
+                      subtitle: "What can I do for you today?",
+                      buttons: [{
+                              type: "postback",
+                              title: "New Tour",
+                              payload: "startTour"
+                          }, {
+                              type: "postback",
+                              title: "Resume Tour",
+                              payload: "resumeTour"
+                          }]
+                  }]
+          }
+      }
+  }
+  sendMessage(userId, message);
+}
 
 // look for tour details
 
@@ -187,6 +220,38 @@ function findTour(userId, formattedMsg) {
         }
     });
 }
+
+function resumeTour(senderId) {
+                Input.findOne({user_id: senderId}, { tour: 1, description: 1, language: 1 }, function (error, response) {
+                                  if (error) {
+                        console.log("Database error: " + err);
+                    }
+                    else {
+                        message = {
+                            attachment: {
+                                type: "template",
+                                payload: {
+                                    template_type: "generic",
+                                    elements: [{
+                                            title: description + " - " + language,
+                                            subtitle: "Is this the tour are looking for?",
+                                            buttons: [{
+                                                    type: "postback",
+                                                    title: "Yes",
+                                                    payload: "CorrectTour"
+                                                }, {
+                                                    type: "postback",
+                                                    title: "No",
+                                                    payload: "IncorrectTour"
+                                                }]
+                                        }]
+                                }
+                            }
+                        }
+                        sendMessage(senderId, message);
+                    }
+                });
+            }
 
 
 // capture the caption inputs in Mongo
