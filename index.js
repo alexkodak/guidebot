@@ -76,7 +76,7 @@ function processPostback(event) {
             sendMessage(senderId, {text: message});
         });
     } else if (payload === "CorrectTour") {
-        sendMessage(senderId, {text: "Great, From now just type the reference of the caption you want to know about. Type 'exit' to leave"});
+        sendMessage(senderId, {text: "Great, From now just type the reference of the caption you want to know about, or type 'exit' to leave"});
 
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -98,8 +98,10 @@ function processMessage(event) {
 
 
 // If we receive a text message, check to see if we already now this user
-
-                if(formattedMsg.length === 8) {
+                if (formattedMsg === 'exit') {
+                  sendMessage(senderId, {text: "Thank you for visiting us today."});
+                }
+                else if (formattedMsg.length === 8) {
                 findTour(senderId, formattedMsg);
                     }
                 else {
