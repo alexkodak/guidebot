@@ -72,11 +72,11 @@ function processPostback(event) {
                 name = bodyObj.first_name;
                 greeting = "Hi " + name + ". ";
             }
-            var message = greeting + "My name is Guy the Guide. Can you give me the Tour ID of the place you are visiting today?";
+            var message = greeting + "I'll be your guide for today. Which place are you visiting today?";
             sendMessage(senderId, {text: message});
         });
-    } else if (payload === "Correct") {
-        sendMessage(senderId, {text: "Great, now let's look at the caption you want to read."});
+    } else if (payload === "CorrectTour") {
+        sendMessage(senderId, {text: "Great, now tell me which caption you want to know about."});
 
     } else if (payload === "Incorrect") {
         sendMessage(senderId, {text: "Oops! Sorry about that."});
@@ -156,7 +156,7 @@ function findTour(userId, formattedMsg) {
                                             buttons: [{
                                                     type: "postback",
                                                     title: "Yes",
-                                                    payload: "Correct"
+                                                    payload: "CorrectTour"
                                                 }, {
                                                     type: "postback",
                                                     title: "No",
