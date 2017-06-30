@@ -222,7 +222,7 @@ function findTour(userId, formattedMsg) {
 }
 
 function resumeTour(senderId) {
-                Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response) {
+                Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response, results) {
 
 
                                   if (error) {
