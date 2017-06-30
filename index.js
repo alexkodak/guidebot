@@ -134,7 +134,7 @@ function tourTriage(senderId){
           payload: {
               template_type: "generic",
               elements: [{
-                      title: "Menu",
+                  //    title: "Menu",
                       subtitle: "What can I do for you today?",
                       buttons: [{
                               type: "postback",
@@ -233,7 +233,7 @@ function resumeTour(senderId) {
                                 payload: {
                                     template_type: "generic",
                                     elements: [{
-                                            title: description + " - " + language,
+                                            title: response.description + " - " + response.language,
                                             subtitle: "Is this the tour are looking for?",
                                             buttons: [{
                                                     type: "postback",
