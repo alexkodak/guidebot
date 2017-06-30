@@ -304,7 +304,7 @@ console.log("looking for the most recent caption for user: " + senderId);
             if (error) {
                 console.log("Error getting tour: " + error);
             }
-            else if (description.length == 0) {
+            else if results.length == 0) {
             sendMessage(senderId, {text: "Looks like " + caption + " does not exist, please try again."});
             }
 
