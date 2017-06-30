@@ -226,10 +226,8 @@ function resumeTour(senderId) {
                                   if (error) {
                         console.log("Database error: " + err);
                     }
-                    else if (response.tour.length === 0) {
-                  sendMessage(userId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
-                    }
-                    else {
+
+                    else if (response.statusCode == 200) {
                         message = {
                             attachment: {
                                 type: "template",
@@ -252,6 +250,9 @@ function resumeTour(senderId) {
                             }
                         }
                         sendMessage(senderId, message);
+                    }
+                    else {
+                  sendMessage(userId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
                 });
             }
