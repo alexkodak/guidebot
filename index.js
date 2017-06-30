@@ -224,10 +224,10 @@ function findTour(userId, formattedMsg) {
 function resumeTour(senderId) {
                 Input.findOne({user_id: senderId}, { tour: 1, tour_description: 1, language: 1 }, function (error, response) {
                                   if (error) {
-                        console.log("Database error: " + err);
+                        console.log("Database error: " + error);
                     }
 
-                    else if (response.statusCode == 200) {
+                    else if (!response.isNull) {
                         message = {
                             attachment: {
                                 type: "template",
