@@ -256,7 +256,7 @@ function resumeTour(senderId) {
                     else {
                       var foundTour = (response);
                       console.log(foundTour);
-                  sendMessage(userId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
+                  sendMessage(senderId, {text: "Looks like you don't have a saved tour. That's okay, please let us know the place you are visiting today."});
                     }
                 });
             }
