@@ -86,7 +86,7 @@ function processPostback(event) {
         sendMessage(senderId, {text: "thank you we are looking for your last tour."});
         resumeTour(senderId);
     } else if (payload === "startTour") {
-        sendMessage(senderId, {text: "Great! Which place are you visiting today?"});
+        sendMessage(senderId, {text: "Which place are you visiting today?"});
 
     }
 }
@@ -277,7 +277,7 @@ function updateCaption (senderId, formattedMsg, findCaption){
                     if (err) {
                         console.log("Database error: " + err);
                     } else {
-                        console.log("loading findCaption for user: " + senderId);
+                        console.log("loading caption for user: " + senderId);
                                    }
               });
             };
@@ -303,7 +303,12 @@ console.log("looking for the most recent caption for user: " + senderId);
     request("https://blooming-wave-81088.herokuapp.com/captions/" + tour + "/" + caption, { description: 1 }, function (error, response) {
             if (error) {
                 console.log("Error getting tour: " + error);
-            } else {
+            }
+            else if (results == null) {
+            sendMessage(senderId, {text: "Looks like this caption does not exist, please try again."});
+            }
+
+            else {
              var captionRes = JSON.parse(response.body);
                console.log("response is: " + captionRes.description + "for user :" + senderId);
                sendMessage(senderId, {text: captionRes.description});
