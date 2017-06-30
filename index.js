@@ -206,7 +206,7 @@ function updateCaption (senderId, formattedMsg, findCaption){
 
 // look for caption details
 
-function findCaption(senderId, userId) {
+function findCaption(senderId, userId, sendMessage) {
 console.log("looking for the most recent caption for user: " + senderId);
     Input.findOne({user_id: senderId}, { tour: 1, caption: 1 }, function (err, response) {
                     if (err) {
@@ -226,7 +226,7 @@ console.log("looking for the most recent caption for user: " + senderId);
                 console.log("Error getting tour: " + error);
             } else {
              var captionRes = JSON.parse(response.body);
-               console.log("response is: " + captionRes.description);
+               console.log("response is: " + captionRes.description + "for user :" + userId);
                sendMessage(userId, {text: captionRes.description});
                        }
       });
