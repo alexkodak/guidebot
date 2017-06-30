@@ -134,7 +134,7 @@ function tourTriage(senderId){
           payload: {
               template_type: "generic",
               elements: [{
-                  //    title: "Menu",
+                    title: "Menu",
                       subtitle: "What can I do for you today?",
                       buttons: [{
                               type: "postback",
